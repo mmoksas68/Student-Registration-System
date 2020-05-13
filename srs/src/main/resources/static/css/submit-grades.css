@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+  //Edit:
+  margin: 0;
+  padding: 0;
+  color: white !important;
+}
+html, body, {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width: 100%;
+	height: 100%;
+}
+
+body {
+  /* The image used */
+  background-image: url("../assets/background4.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 120%;
+}
+
+.navbar, table, .table-header{
+  background-color: rgba(0,0,0,0.5) !important; 
+}
+
+.list-group-item, .info-table{
+  background-color: rgba(0,0,0,0) !important; 
+}
+
+.nav-item{
+	font-weight: bold;
+}
+
+.nav-link:hover, .nav-link i:hover {
+  background-color: white;
+  border-radius: 25px;
+  color: black !important;
+}
+
+.current {
+  background-color: white;
+  border-radius: 25px;
+  color: black !important;
+}
+
+
+.card { transition: all .2s ease-in-out; background-color: rgba(0,0,0,0.4) !important;}
+.card:hover { transform: scale(1.1); }
+
+.set { transition: all .2s ease-in-out; }
+.set:hover { transform: scale(1.1); }
+
+#week-schedule th{
+	width: 15% !important;
+
+} 
+
+#week-schedule .smallTh{
+	width: 13% !important;
+}
+
+th{
+	vertical-align: middle !important;
+}
+.set-1{
+	background: #4FB69F;
+	  border-radius: 25px;
+}
+
+.set-2{
+	background: #E56B70;
+	  border-radius: 25px;
+}
+
+.set-3{
+	background: #8A897C;
+	  border-radius: 25px;
+}
+
+.set-4{
+	background: #1A8FE3;
+	  border-radius: 25px;
+}
+
+.set-5{
+	background: #9D695A;
+	  border-radius: 25px;
+}
+
+.set-6{
+	background: #C3D898;
+	  border-radius: 25px;
+}
+
+input, label{
+  color: black !important;
+}

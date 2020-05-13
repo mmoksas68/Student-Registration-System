@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+  //Edit:
+  margin: 0;
+  padding: 0;
+  color: white !important;
+}
+html, body, {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width: 100%;
+  height: 100%;
+}
+
+body {
+  /* The image used */
+  background-image: url("../assets/background4.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 120%;
+}
+
+.navbar, table, .table-header, .course-table, .page-link, .transparent-background{
+  background-color: rgba(0,0,0,0.5) !important; 
+}
+
+.list-group-item, .info-table{
+  background-color: rgba(0,0,0,0) !important; 
+}
+
+.nav-item{
+  font-weight: bold;
+}
+
+.nav-link:hover, .nav-link i:hover {
+  background-color: white;
+  border-radius: 25px;
+  color: black !important;
+}
+
+.current {
+  background-color: white;
+  border-radius: 25px;
+  color: black !important;
+}
+
+.active-page{
+  font-size: 150%;
+}
+
+.card { transition: all .2s ease-in-out; background-color: rgba(0,0,0,0.4) !important;}
+.card:hover { transform: scale(1.1); }
+
+.set { transition: all .2s ease-in-out; }
+.set:hover { transform: scale(1.1); }
+
+th{
+  vertical-align: middle !important;
+}
+
+.set-1, .set-2, .set-3, .set-4, .set-5, .set-6{
+    background: #3385ff;
+    border-radius: 25px;
+}
+
+
+#university-table{height:220px; width:100%;}
+#university-table{overflow:hidden; overflow-y:scroll;}

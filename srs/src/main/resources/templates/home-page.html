@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/home-page.css}">
+  <title>Hello, world!</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/4b64c3ab5c.js" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+      <th:block th:each="student : ${students}">
+            <h1 th:text="${'helel' + student.firstName}">...</h1>
+            <h1  th:text="${student.lastName}">...</h1>
+      </th:block>
+
+     <!-- üst taraf navigasyon bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+        
+        <a class="navbar-brand" href="#"><i class="fas fa-university text-success"></i> Student Registration System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarNavDropdown">
+            <ul class="navbar-nav  ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link current" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Grades <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Attendaces <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Scheduled Assessments <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Transcript <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Curriculum <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Course Registeration<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Exchange<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Car Stickers<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Logout <i class="fas fa-sign-out-alt"></i><span class="sr-only">(current)</span></a>
+              </li>             
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row" style="width: 100%;">
+        <div class="col-2" id="smallStudentInfo">
+
+            <!-- sol taraf öğrenci sectionu -->
+            <div class="card w-100 ml-3" style="width: 18rem;">
+              <div class="card-header text-center">
+                Student Information
+              </div>
+              <img th:src="@{/assets/vesikalık.jpg}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title text-center">Muhammed Musab Okşaş</h5>
+                <h5 class="card-text text-center">Computer Science</h5>
+                <h6 class="card-text text-center">21602984</h6>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <table class="table table-striped table-sm info-table">
+                      <tbody>
+                        <tr>
+                          <th scope="row">CGPA</th>
+                          <td>3.16</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">GPA</th>
+                          <td>3.65</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Class</th>
+                          <td>3</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </li>
+                <li class="list-group-item">
+                    <table class="table table-striped table-sm info-table">
+                      <tbody>
+                        <tr>
+                          <th scope="row">Mobile Phone:</th>
+                          <th>5525585706</th>
+                        </tr>
+                      </tbody>
+                    </table>
+                </li>
+                <li class="list-group-item">Contact Mail:</li>
+                <li class="list-group-item" style="font-size: 75%;">musab.oksas@ug.bilkent.edu.tr</li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link">Update Information <i class="fas fa-user-edit"></i></a>
+              </div>
+            </div>
+
+        </div>
+
+        <button type="button" class="btn"  id="hideButton"><i class="fas fa-angle-double-left"></i></button>
+        <button type="button" class="btn d-none ml-3"  id="showButton"><i class="fas fa-angle-double-right"></i></button>    
+        
+        <div class="col">
+            <div class="row">
+                <!-- aldığın dersler -->
+                <h6 class="table-header">Courses Taken 2019-2020 Spring Semester</h6>    
+                <table class="table table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col">Course Code</th>
+                      <th scope="col">Course Name</th>
+                      <th scope="col">Instructors</th>
+                      <th scope="col">Credits</th>
+                      <th scope="col">Links</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">CS 421-1</th>
+                      <td>Computer Networks</td>
+                      <td>Ezhan Karaşan</td>
+                      <td>3</td>
+                      <td>
+                        <a href="#"><i class="set fas fa-book-open"></i></a> 
+                        <a href="#"><i class="set fas fa-tasks"></i></a>
+                        <a href="#"><i class="set fab fa-weebly"></i></a>
+                      </td>  
+                    </tr>
+                    <tr>
+                      <th scope="row">CS 353-3</th>
+                      <td>Database Systems</td>
+                      <td>Özgür Ulusoy</td>
+                      <td>3</td>
+                      <td>
+                        <a href="#"><i class="set fas fa-book-open"></i></a> 
+                        <a href="#"><i class="set fas fa-tasks"></i></a>
+                        <a href="#"><i class="set fab fa-weebly"></i></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">CS 464-4</th>
+                      <td>Introduction to Machine Learning</td>
+                      <td>Abdullah Ercüment Çiçek</td>
+                      <td>3</td>
+                      <td>
+                        <a href="#"><i class="set fas fa-book-open"></i></a> 
+                        <a href="#"><i class="set fas fa-tasks"></i></a>
+                        <a href="#"><i class="set fab fa-weebly"></i></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">PSYC 102-4</th>
+                      <td>Introduction to Social Psychology</td>
+                      <td>Jale Gürzumar</td>
+                      <td>3</td>
+                      <td>
+                        <a href="#"><i class="set fas fa-book-open"></i></a> 
+                        <a href="#"><i class="set fas fa-tasks"></i></a>
+                        <a href="#"><i class="set fab fa-weebly"></i></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">CS 342-1</th>
+                      <td>Operating Systems</td>
+                      <td>İbrahim Körpeoğlu</td>
+                      <td>4</td>
+                      <td>
+                        <a href="#"><i class="set fas fa-book-open"></i></a> 
+                        <a href="#"><i class="set fas fa-tasks"></i></a>
+                        <a href="#"><i class="set fab fa-weebly"></i></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">CS 315-1</th>
+                      <td>Programming Languages</td>
+                      <td>H.Altay Güvenir</td>
+                      <td>3</td>
+                      <td>
+                        <a href="#"><i class="set fas fa-book-open"></i></a> 
+                        <a href="#"><i class="set fas fa-tasks"></i></a>
+                        <a href="#"><i class="set fab fa-weebly"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <h6 class="table-header">Weekly Schedule</h6>
+                <!-- ders programı -->
+                <table class="table table-striped text-center table-sm" id="week-schedule" style="">
+                  <thead>
+                    <tr>
+                      <th class="smallTh" scope="col-1">Hours</th>
+                      <th scope="col-2">Monday</th>
+                      <th scope="col-2">Tuesday</th>
+                      <th scope="col-2">Wednesday</th>
+                      <th scope="col-2">Thursday</th>
+                      <th scope="col-2">Friday</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th cclass="smallTh" scope="row">08:40 - 09:30</th>
+                      <td></td>
+                      <td class="set set-3">CS 353-3<br>(EB-104)</td>
+                      <td></td>
+                      <td></td>
+                      <td class="set set-4">PSYC 102-4<br>(T-272)</td>
+                    </tr>
+                    <tr>
+                      <th class="smallTh" scope="row">09:40 - 10:30</th>
+                      <td></td>
+                      <td class="set set-3">CS 353-3<br>(EB-104)</td>
+                      <td></td>
+                      <td></td>
+                      <td class="set set-4">PSYC 102-4<br>(T-272)</td>
+                    </tr>
+                    <tr>
+                      <th class="smallTh" scope="row">10:40 - 11:30</th>
+                      <td></td>
+                      <td class="set set-4">PSYC 102-4<br>(T-272)</td>
+                      <td></td>
+                      <td class="set set-3">CS 353-3<br>(EB-104)</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th class="smallTh" scope="row">11:40 - 12:30</th>
+                      <td></td>
+                      <td class="set set-4">PSYC 102-4<br>(T-272)</td>
+                      <td></td>
+                      <td class="set set-3">CS 353-3<br>(EB-104)</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th class="smallTh" scope="row">12:40 - 13:30</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th class="smallTh" scope="row">13:40 - 14:30</th>
+                      <td></td>
+                      <td class="set set-1">CS 315-1<br>(EB-204)</td>
+                      <td class="set set-2">CS 342-1<br>(EE-05)</td>
+                      <td class="set set-5">CS 421-1<br>(EE-04)</td>
+                      <td class="set set-6">CS 464-2<br>(EE-04)</td>
+                    </tr>
+                    <tr>
+                      <th class="smallTh" scope="row">14:40 - 15:30</th>
+                      <td></td>
+                      <td class="set set-1">CS 315-1<br>(EB-204)</td>
+                      <td class="set set-2">CS 342-1<br>(EE-05)</td>
+                      <td class="set set-5">CS 421-1<br>(EE-04)</td>
+                      <td class="set set-6">CS 464-2<br>(EE-04)</td>
+                    </tr>
+                    <tr>
+                      <th class="smallTh" scope="row">15:40 - 16:30</th>
+                      <td class="set set-5">CS 421-1<br>(EE-04)</td>
+                      <td class="set set-6">CS 464-2<br>(EE-04)</td>
+                      <td></td>
+                      <td class="set set-1">CS 315-1<br>(EB-204)</td>
+                      <td class="set set-2">CS 342-1<br>(EE-05)</td>
+                    </tr>
+                    <tr>
+                      <th class="smallTh" scope="row">16:40 - 17:30</th>
+                      <td class="set set-5">CS 421-1<br>(EE-04)</td>
+                      <td class="set set-6">CS 464-2<br>(EE-04)</td>
+                      <td></td>
+                      <td class="set set-1">CS 315-1<br>(EB-204)</td>
+                      <td class="set set-2">CS 342-1<br>(EE-05)</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>       
+        </div>
+
+    </div>
+    <script th:src="@{/js/homePage.js}"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

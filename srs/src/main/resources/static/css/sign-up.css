@@ -1,0 +1,38 @@
+html, body, {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width: 100%;
+	height: 100%;
+}
+
+
+body {
+  /* The image used */
+  background-image: url("../assets/login1.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 120%;
+}
+
+
+.col-6{
+	background-color: rgba(0,0,0,0.3) !important;	
+	  border-radius: 25px;
+}
+
+.form-group:not(.not-white), h1{
+	color: white;
+}
+
+input, textarea, select, option, #datepicker{
+  color: black !important;
+}
