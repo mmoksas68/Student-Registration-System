@@ -17,8 +17,8 @@
 <body>
 
       <th:block th:each="student : ${students}">
-            <h1 th:text="${'helel' + student.firstName}">...</h1>
-            <h1  th:text="${student.lastName}">...</h1>
+            <h1 th:text="${'helel' + student.lastName}">...</h1>
+            <h1  th:text="${student.firstName}">...</h1>
       </th:block>
 
      <!-- üst taraf navigasyon bar -->
