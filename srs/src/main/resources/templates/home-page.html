@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -7,7 +7,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" th:href="@{/css/home-page.css}">
+  <link rel="stylesheet" href="../../static/student/home-page.css">  
   <title>Hello, world!</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/4b64c3ab5c.js" crossorigin="anonymous"></script>
@@ -15,11 +15,6 @@
 
 </head>
 <body>
-
-      <th:block th:each="student : ${students}">
-            <h1 th:text="${'helel' + student.firstName}">...</h1>
-            <h1  th:text="${student.lastName}">...</h1>
-      </th:block>
 
      <!-- üst taraf navigasyon bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
@@ -72,11 +67,11 @@
               <div class="card-header text-center">
                 Student Information
               </div>
-              <img th:src="@{/assets/vesikalık.jpg}" class="card-img-top" alt="...">
+              <img src="file://C:\Users\MUSAB\Pictures/vesikalık.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title text-center">Muhammed Musab Okşaş</h5>
-                <h5 class="card-text text-center">Computer Science</h5>
-                <h6 class="card-text text-center">21602984</h6>
+                <h5 class="card-text text-center">Computer Science</h4>
+                <h6 class="card-text text-center">21602984</h3>
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
@@ -297,7 +292,7 @@
         </div>
 
     </div>
-    <script th:src="@{/js/homePage.js}"></script>
+    <script src="../../static/student/homePage.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
