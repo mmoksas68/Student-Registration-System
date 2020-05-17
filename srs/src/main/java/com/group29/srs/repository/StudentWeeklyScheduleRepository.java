@@ -1,7 +1,7 @@
 package com.group29.srs.repository;
 
-import com.group29.srs.mappers.TakenCoursesMapper;
-import com.group29.srs.model.TakenCourses;
+import com.group29.srs.mappers.WeeklyScheduleMapper;
+import com.group29.srs.model.WeeklySchedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,19 +9,19 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TakenCoursesRepository {
+public class StudentWeeklyScheduleRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<TakenCourses> getTakenCourses(long id, String semester, int year){
+    public List<WeeklySchedule> getStudentWeeklySchedule(long id, String semester, int year){
         return  jdbcTemplate.query("SELECT c.course_code, sec.section_number," +
-                " c.name,u.firstname, u.lastname,c.credits FROM Student s " +
+                "sec.class, ts.day, ts.start_time, ts.end_time " +
+                "FROM Student s " +
                 "INNER JOIN Takes t ON t.student_id=s.student_id " +
                 "INNER JOIN Section sec ON t.section_id=sec.section_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
-                "INNER JOIN Instructor i ON i.instructor_id= sec.teacher_id " +
-                "INNER JOIN User u ON i.instructor_id=u.user_id " +
+                "INNER JOIN TimeSlot ts ON ts.section_id = sec.section_id " +
                 "WHERE s.student_id= ? AND " +
-                "t.semester= ? AND t.year= ?;",new Object[] {id, semester, year}, new TakenCoursesMapper());
+                "t.semester= ? AND t.year= ?;",new Object[] {id, semester, year}, new WeeklyScheduleMapper());
     }
 }

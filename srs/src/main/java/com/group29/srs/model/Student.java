@@ -8,12 +8,12 @@ public class Student {
     Double gpa;
     Double cpga;
     Double erasmus_application_point;
-    Enum gender;
+    String gender;
     Date date_of_birth;
     int age;
     String current_semester;
 
-    public Student(Long student_id, String address, Double gpa, Double cpga, Double erasmus_application_point, Enum gender, Date date_of_birth, int age, String current_semester) {
+    public Student(Long student_id, String address, Double gpa, Double cpga, Double erasmus_application_point, String gender, Date date_of_birth, int age, String current_semester) {
         this.student_id = student_id;
         this.address = address;
         this.gpa = gpa;
@@ -68,11 +68,11 @@ public class Student {
         this.erasmus_application_point = erasmus_application_point;
     }
 
-    public Enum getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Enum gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

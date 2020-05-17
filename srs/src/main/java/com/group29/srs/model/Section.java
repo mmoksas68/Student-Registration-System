@@ -5,7 +5,7 @@ public class Section {
     Long section_id;
     String classroom ;
     int section_number;
-    Enum semester;
+    String semester;
     int year;
     int available_quota;
     int total_quota;
@@ -14,7 +14,7 @@ public class Section {
 
     }
 
-    public Section(Long course_id, Long section_id, String classroom, int section_number, Enum semester, int year, int available_quota, int total_quota, Long teacher_id) {
+    public Section(Long course_id, Long section_id, String classroom, int section_number, String semester, int year, int available_quota, int total_quota, Long teacher_id) {
         this.course_id = course_id;
         this.section_id = section_id;
         this.classroom = classroom;
@@ -58,11 +58,11 @@ public class Section {
         this.section_number = section_number;
     }
 
-    public Enum getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(Enum semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 

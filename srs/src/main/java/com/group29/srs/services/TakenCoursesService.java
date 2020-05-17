@@ -13,7 +13,7 @@ public class TakenCoursesService {
     @Autowired
     TakenCoursesRepository takenCoursesRepository;
 
-    public List<TakenCourses> getTakenCourses(Long id, Enum semester,int year ){
+    public List<TakenCourses> getTakenCourses(Long id, String semester,int year ){
         return takenCoursesRepository.getTakenCourses(id, semester , year);
     }
 }
