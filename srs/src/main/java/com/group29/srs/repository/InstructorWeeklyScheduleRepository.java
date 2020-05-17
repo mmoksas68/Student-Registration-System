@@ -12,14 +12,14 @@ import java.util.List;
 public class InstructorWeeklyScheduleRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
-
     public List<WeeklySchedule> getInstructorWeeklySchedule(long id, String semester, int year){
         return  jdbcTemplate.query("SELECT c.course_code, sec.section_number," +
-                "sec.class, ts.day, ts.start_time, ts.end_time " +
+                "sec.classroom, ts.start_day, ts.start_time, ts.end_time " +
                 "FROM Instructor i " +
                 "INNER JOIN Section sec ON sec.teacher_id=i.instructor_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
-                "INNER JOIN TimeSlot ts ON ts.section_id = sec.section_id " +
+                "INNER JOIN Has h ON sec.section_id = h.section_id " +
+                "INNER JOIN TimeSlot ts ON ts.time_id = h.time_id " +
                 "WHERE i.instructor_id= ? AND sec.semester= ? " +
                 "AND sec.year= ?;",new Object[] {id, semester, year}, new WeeklyScheduleMapper());
     }

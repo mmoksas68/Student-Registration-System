@@ -26,7 +26,7 @@ public class TeachingAssistantInfoRepository {
                 "ta.ta_id, ta.office_no, p.phone_number, u.mail " +
                 "FROM TeachingAssistant ta " +
                 "INNER JOIN User u ON ta.ta_id=u.user_id " +
-                "INNER JOIN Member m ON u.user_id=m.user_id " +
+                "INNER JOIN D_Member m ON u.user_id=m.user_id " +
                 "INNER JOIN Department d ON m.dept_code = d.dept_code " +
                 "INNER JOIN Phone p ON p.phone_id= u.user_id " +
                 "WHERE ta.ta_id = ?;",new Object[] {id}, new TeachingAssistantInfoMapper());

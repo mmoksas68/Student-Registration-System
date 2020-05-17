@@ -26,8 +26,8 @@ public class StudentInfoRepository {
                 "s.student_id, s.cgpa, s.gpa, s.current_semester," +
                 "p.phone_number, u.mail " +
                 "FROM Student s " +
-                "INNER JOIN User u WHERE s.student_id=u.user_id " +
-                "INNER JOIN Member m ON u.user_id=m.user_id " +
+                "INNER JOIN User u ON s.student_id=u.user_id " +
+                "INNER JOIN D_Member m ON u.user_id=m.user_id " +
                 "INNER JOIN Department d ON m.dept_code = d.dept_code " +
                 "INNER JOIN Phone p ON p.phone_id= u.user_id " +
                 "WHERE s.student_id = ?;",new Object[] {id}, new StudentInfoMapper());

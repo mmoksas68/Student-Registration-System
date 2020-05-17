@@ -13,7 +13,7 @@ public class TeachingAssistantWeeklyScheduleService {
     @Autowired
     TeachingAssistantWeeklyScheduleRepository teachingAssistantWeeklyScheduleRepository;
 
-    public List<WeeklySchedule> getInstructorWeeklySchedule(Long id, String semester, int year ){
+    public List<WeeklySchedule> getTeachingAssistantWeeklySchedule(Long id, String semester, int year ){
         return teachingAssistantWeeklyScheduleRepository.getTeachingAssistantWeeklySchedule(id, semester , year);
     }
 }

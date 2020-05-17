@@ -16,7 +16,7 @@ public class TakenCoursesRepository {
     public List<TakenCourses> getTakenCourses(long id, String semester, int year){
         return  jdbcTemplate.query("SELECT c.course_code, sec.section_number," +
                 " c.name,u.firstname, u.lastname,c.credits FROM Student s " +
-                "INNER JOIN Takes t ON t.student_id=s.student_id " +
+                "INNER JOIN Takes t ON t.s_id=s.student_id " +
                 "INNER JOIN Section sec ON t.section_id=sec.section_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
                 "INNER JOIN Instructor i ON i.instructor_id= sec.teacher_id " +

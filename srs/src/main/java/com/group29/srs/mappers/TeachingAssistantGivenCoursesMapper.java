@@ -10,11 +10,8 @@ public class TeachingAssistantGivenCoursesMapper implements RowMapper<TeachingAs
     @Override
     public TeachingAssistantGivenCourses mapRow(ResultSet resultSet, int index) throws SQLException {
         TeachingAssistantGivenCourses tagc = new TeachingAssistantGivenCourses();
-        tagc.setFirstname(resultSet.getString("firstname"));
-        tagc.setLastname(resultSet.getString("lastname"));
         tagc.setCourse_code(resultSet.getString("course_code"));
         tagc.setName(resultSet.getString("name"));
-        tagc.setClassroom(resultSet.getString("classroom"));
         return tagc;
     }
 }

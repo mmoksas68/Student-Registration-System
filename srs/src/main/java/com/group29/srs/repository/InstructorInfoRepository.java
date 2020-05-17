@@ -25,8 +25,8 @@ public class InstructorInfoRepository {
         return  jdbcTemplate.query("SELECT u.firstname, u.lastname, d.dept_name," +
                 "i.instructor_id, i.office_no, p.phone_number, u.mail " +
                 "FROM Instructor i " +
-                "INNER JOIN User u ON i.instructor_id=m.user_id " +
-                "INNER JOIN Member m ON u.user_id=m.user_id " +
+                "INNER JOIN User u ON i.instructor_id= u.user_id " +
+                "INNER JOIN D_Member m ON u.user_id=m.user_id " +
                 "INNER JOIN Department d ON m.dept_code = d.dept_code " +
                 "INNER JOIN Phone p ON p.phone_id= u.user_id " +
                 "WHERE i.instructor_id = ?;",new Object[] {id}, new InstructorInfoMapper());
