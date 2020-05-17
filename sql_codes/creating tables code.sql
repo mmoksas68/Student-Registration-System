@@ -42,7 +42,7 @@ office_hours	varchar(32),
 Foreign key (ta_id) references User(user_id));
 
 create table Task(
-task_id		int primary key,
+task_id		int primary key AUTO_INCREMENT,
 task_type	varchar(32));
 
 create table Course(
@@ -69,6 +69,7 @@ primary key(course_id, section_id),
 foreign key (teacher_id) references Instructor(instructor_id),
 foreign key (course_id) references Course(course_id),
 check(semester in ('fall','spring','summer')));
+
 
 CREATE TABLE ScheduledExam(
 exam_id			INT PRIMARY KEY AUTO_INCREMENT,
@@ -108,11 +109,12 @@ foreign key(task_id) references Task(task_id),
 foreign key(instructor_id) references Instructor(instructor_id),
 foreign key(ta_id) references TeachingAssistant(ta_id));
 
+drop table Takes;
 create table Takes(
 s_id 		int,
 course_id 		int,
 section_id		int,
-final_grade		numeric(3,2),
+final_grade		double,
 letter_grade 	enum('A+','A','A-','B+','B','B-','C+','C','C-','D+','D','D-','F','FZ','W'),
 year			smallint,
 semester		enum('fall','spring','summer'),
@@ -121,16 +123,18 @@ foreign key(s_id) references Student(student_id),
 foreign key(course_id, section_id) references Section(course_id, section_id)
 );
 
+
 create table TimeSlot(
-time_id 	int primary key,
+time_id 	int primary key auto_increment,
 start_time	TIME,
 end_time	TIME,
 start_day	ENUM('mon','tue','wed','thu','fri','sat','sun'));
 
 create table Has(
-time_id 	int primary key,
+time_id 	int,
 course_id	int,
 section_id	int,
+primary key (time_id, course_id, section_id),
 foreign key(time_id) references TimeSlot(time_id),
 foreign key(course_id, section_id) references Section(course_id, section_id));
 
@@ -173,17 +177,24 @@ foreign key(course_id) references Course(course_id));
 
 
 create table PreReq(
-	course_id	int,
-    req_id		int,
-    primary key (course_id, req_id),
-    foreign key(course_id) references Course(course_id),
-    foreign key(req_id) references Course(course_id));
-    
+course_id	int,
+req_id		int,
+primary key (course_id, req_id),
+foreign key(course_id) references Course(course_id),
+foreign key(req_id) references Course(course_id));
     
 CREATE TABLE Includes(
-	exam_id			INT,
-	course_id		INT,
-	section_id		INT,
-	PRIMARY KEY (exam_id, course_id, section_id),
-	FOREIGN KEY (exam_id) REFERENCES ScheduledExam(exam_id),
-	FOREIGN KEY (course_id, section_id) REFERENCES Section(course_id, section_id));
+exam_id			INT,
+course_id		INT,
+section_id		INT,
+PRIMARY KEY (exam_id, course_id, section_id),
+FOREIGN KEY (exam_id) REFERENCES ScheduledExam(exam_id),
+FOREIGN KEY (course_id, section_id) REFERENCES Section(course_id, section_id));
+
+
+Create table Classrooms (
+
+exam_id	int,
+classroom varchar(32),
+primary key (exam_id, classroom),
+foreign key (exam_id) references ScheduledExam(exam_id));
