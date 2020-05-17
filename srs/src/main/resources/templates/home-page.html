@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" >
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -7,7 +7,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../static/student/home-page.css">  
+  <link rel="stylesheet" th:href="@{/css/home-page.css}">
   <title>Hello, world!</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/4b64c3ab5c.js" crossorigin="anonymous"></script>
@@ -15,15 +15,6 @@
 
 </head>
 <body>
-
-<<<<<<< HEAD
-=======
-      <th:block th:each="student : ${students}">
-            <h1 th:text="${'helel' + student.lastName}">...</h1>
-            <h1  th:text="${student.firstName}">...</h1>
-      </th:block>
-
->>>>>>> 5dee1cabde604029d35f15f658215a8c3be0270e
      <!-- üst taraf navigasyon bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
         
@@ -75,11 +66,11 @@
               <div class="card-header text-center">
                 Student Information
               </div>
-              <img src="file://C:\Users\MUSAB\Pictures/vesikalık.jpg" class="card-img-top" alt="...">
+              <img th:src="@{/assets/vesikalık.jpg}" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title text-center">Muhammed Musab Okşaş</h5>
-                <h5 class="card-text text-center">Computer Science</h4>
-                <h6 class="card-text text-center">21602984</h3>
+                <h5 class="card-title text-center" th:text="${student.getFirstname()} + ' ' + ${student.getLastname()}"></h5>
+                <h5 class="card-text text-center" th:text="${student.getDept_name()}"></h5>
+                <h6 class="card-text text-center" th:text="${student.getStudent_id()}"></h6>
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
@@ -87,15 +78,15 @@
                       <tbody>
                         <tr>
                           <th scope="row">CGPA</th>
-                          <td>3.16</td>
+                          <td th:text="${student.getCgpa()}"></td>
                         </tr>
                         <tr>
                           <th scope="row">GPA</th>
-                          <td>3.65</td>
+                          <td th:text="${student.getGpa()}"></td>
                         </tr>
                         <tr>
-                          <th scope="row">Class</th>
-                          <td>3</td>
+                          <th scope="row">Current Semester</th>
+                          <td th:text="${student.getCurrent_semester()}"></td>
                         </tr>
                       </tbody>
                     </table>
@@ -105,13 +96,13 @@
                       <tbody>
                         <tr>
                           <th scope="row">Mobile Phone:</th>
-                          <th>5525585706</th>
+                          <th th:text="${student.getPhone_number()}"></th>
                         </tr>
                       </tbody>
                     </table>
                 </li>
-                <li class="list-group-item">Contact Mail:</li>
-                <li class="list-group-item" style="font-size: 75%;">musab.oksas@ug.bilkent.edu.tr</li>
+                <li class="list-group-item" >Contact Mail:</li>
+                <li class="list-group-item" style="font-size: 75%;" th:text="${student.getMail()}"></li>
               </ul>
               <div class="card-body">
                 <a href="#" class="card-link">Update Information <i class="fas fa-user-edit"></i></a>
@@ -138,68 +129,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">CS 421-1</th>
-                      <td>Computer Networks</td>
-                      <td>Ezhan Karaşan</td>
-                      <td>3</td>
+                    <tr th:each="course, itr: ${courses_taken}">
+                      <th scope="row" th:text="${course.getCourse_code()} + '-' + ${course.getSection_number()}"></th>
+                      <td th:text="${course.getName()}"></td>
+                      <td th:text="${course.getFirstname()} + ' ' + ${course.getLastname()}">Ezhan Karaşan</td>
+                      <td th:text="${course.getCredits()}"></td>
                       <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>  
-                    </tr>
-                    <tr>
-                      <th scope="row">CS 353-3</th>
-                      <td>Database Systems</td>
-                      <td>Özgür Ulusoy</td>
-                      <td>3</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">CS 464-4</th>
-                      <td>Introduction to Machine Learning</td>
-                      <td>Abdullah Ercüment Çiçek</td>
-                      <td>3</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">PSYC 102-4</th>
-                      <td>Introduction to Social Psychology</td>
-                      <td>Jale Gürzumar</td>
-                      <td>3</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">CS 342-1</th>
-                      <td>Operating Systems</td>
-                      <td>İbrahim Körpeoğlu</td>
-                      <td>4</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">CS 315-1</th>
-                      <td>Programming Languages</td>
-                      <td>H.Altay Güvenir</td>
-                      <td>3</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
+                        <a href="#"><i class="set fas fa-book-open"></i></a>
                         <a href="#"><i class="set fas fa-tasks"></i></a>
                         <a href="#"><i class="set fab fa-weebly"></i></a>
                       </td>
@@ -300,7 +236,7 @@
         </div>
 
     </div>
-    <script src="../../static/student/homePage.js"></script>
+    <script th:src="@{/js/homePage.js}"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
