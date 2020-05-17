@@ -67,4 +67,16 @@ public class TakenCourses {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+    @Override
+    public String toString() {
+        return "TakenCourses{" +
+                "course_code='" + course_code + '\'' +
+                ", name='" + name + '\'' +
+                ", credits=" + credits +
+                ", section_number=" + section_number +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }
