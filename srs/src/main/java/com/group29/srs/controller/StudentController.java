@@ -1,15 +1,11 @@
 package com.group29.srs.controller;
 
-
-import com.group29.srs.model.Student;
-import com.group29.srs.services.StudentService;
+import com.group29.srs.services.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
 
 
 @Controller
@@ -17,11 +13,14 @@ import java.util.ArrayList;
 public class StudentController {
 
     @Autowired
-    StudentService studentService;
+    StudentInfoService studentInfoService;
 
     @GetMapping("/cs")
     public String getStudentMainPage(Model model){
-        model.addAttribute("students",  studentService.getStudents());
+        long id= 10000;
+        model.addAttribute("students",  studentInfoService.getStudentInfoById(id));
+
+        //model.addAttribute("students",  personService.getPersons());
         return "home-page";
     }
 }

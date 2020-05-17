@@ -5,7 +5,7 @@
   padding: 0;
   color: white !important;
 }
-html, body, {
+html, body {
     position:fixed;
     top:0;
     bottom:0;
