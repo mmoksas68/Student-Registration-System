@@ -94,4 +94,25 @@ public class InstructorRepository {
                 "WHERE t.section_id = ?; ",new Object[] {section_id,letter_grade});
     }
 
+    public List<TeachingAssistantList> getTeachingAssistants(long section_id, long instructor_id){
+        return  jdbcTemplate.query("SELECT ta.ta_id, u.firstname, u.lastname " +
+                "FROM Instructor i " +
+                "INNER JOIN Authorizes a ON i.instructor_id = a.instructor_id " +
+                "INNER JOIN Task t ON t.task_id=a.task_id " +
+                "INNER JOIN TeachingAssistant ta ON ta.ta_id=a.ta_id " +
+                "INNER JOIN section sec ON sec.teacher_id = i.instructor_id " +
+                "INNER JOIN user u ON u.user_id = ta.ta_id " +
+                "WHERE sec.section_id = ? AND i.instructor_id=? ; ",new Object[] {section_id, instructor_id}, new InstructorAssignMapper());
+    }
+    public void assignTask(long task_id, String task_type, long instructor_id, long ta_id){
+        jdbcTemplate.update(
+                "INSERT INTO Task (task_id, task_type) VALUES( ?, ?)",
+                new Object[]{task_id, task_type}
+        );
+
+        jdbcTemplate.update(
+                "INSERT INTO Authorizes (task_id, instructor_id, ta_id ) VALUES( ?, ?, ?)",
+                new Object[]{task_id, instructor_id, ta_id}
+        );
+    }
 }

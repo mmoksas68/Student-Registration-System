@@ -40,4 +40,12 @@ public class InstructorServices {
     public void setLetterGrades(long section_id, String letter_grade){
         instructorRepository.setLetterGrades(section_id,letter_grade);
     }
+
+    public List<TeachingAssistantList> getTeachingAssistants(long section_id, long instructor_id){
+        return instructorRepository.getTeachingAssistants(section_id,instructor_id);
+    }
+
+    public void assignTask(long task_id, String task_type, long instructor_id, long ta_id){
+        instructorRepository.assignTask(task_id, task_type,instructor_id,ta_id);
+    }
 }

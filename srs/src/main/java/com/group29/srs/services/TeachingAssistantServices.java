@@ -1,5 +1,6 @@
 package com.group29.srs.services;
 
+import com.group29.srs.model.AssignmentGrades;
 import com.group29.srs.model.Ta_InstructorInfo;
 import com.group29.srs.model.TeachingAssistantGivenCourses;
 import com.group29.srs.model.WeeklySchedule;
@@ -27,5 +28,14 @@ public class TeachingAssistantServices {
 
     public List<WeeklySchedule> getTeachingAssistantWeeklySchedule(Long id, String semester, int year ){
         return teachingAssistantRepository.getTeachingAssistantWeeklySchedule(id, semester , year);
+    }
+
+    public List<AssignmentGrades> getStudents(long section_id){
+        return teachingAssistantRepository.getStudents(section_id);
+    }
+    public void setStudentGrades(long assignment_id, String title, String type, String date,
+                                 Double average, Long course_id, Long section_id, int grade,Long student_id){
+         teachingAssistantRepository.setStudentGrades(assignment_id,title,type,date,
+                 average, course_id, section_id, grade,student_id);
     }
 }
