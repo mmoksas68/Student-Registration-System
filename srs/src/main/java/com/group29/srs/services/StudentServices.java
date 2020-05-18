@@ -1,9 +1,6 @@
 package com.group29.srs.services;
 
-import com.group29.srs.model.Grades;
-import com.group29.srs.model.StudentInfo;
-import com.group29.srs.model.TakenCourses;
-import com.group29.srs.model.WeeklySchedule;
+import com.group29.srs.model.*;
 import com.group29.srs.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +27,16 @@ public class StudentServices {
         return studentRepository.getTakenCourses(id, semester , year);
     }
 
-    public List<Grades> getGrades(Long id, String name ){
-        return studentRepository.getGrades(id, name);
+    public List<ButtonName> getButtonNames(Long id, String semester, int year ){
+        return studentRepository.getButtonNames(id, semester , year);
+    }
+
+    public List<Grades> getGrades(long course_id,long student_id ,long section_id){
+        return studentRepository.getGrades(course_id,student_id ,section_id);
+    }
+
+    public void updateStudent(long user_id, String password, String mail, String firstname, String lastname,
+                              String address, String date_of_birth, String phone_number){
+        studentRepository.updateStudent(user_id, password, mail, firstname, lastname, address, date_of_birth, phone_number);
     }
 }

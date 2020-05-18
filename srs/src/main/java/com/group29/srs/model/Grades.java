@@ -4,14 +4,12 @@ public class Grades {
     String title;
     String date;
     String type;
-    Double average;
     int grade;
 
-    public Grades(String title, String date, String type, Double average, int grade) {
+    public Grades(String title, String date, String type,  int grade) {
         this.title = title;
         this.date = date;
         this.type = type;
-        this.average = average;
         this.grade = grade;
     }
 
@@ -40,14 +38,6 @@ public class Grades {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Double getAverage() {
-        return average;
-    }
-
-    public void setAverage(Double average) {
-        this.average = average;
     }
 
     public int getGrade() {

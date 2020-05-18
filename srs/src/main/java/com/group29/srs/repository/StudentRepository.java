@@ -14,14 +14,6 @@ public class StudentRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<StudentInfo> getStudentInfoById(long id){
-        /*String SQL = "SELECT u.firstname, u.lastname, d.dept_name,s.student_id, s.cgpa," +
-                " s.gpa, s.current_semester,p.phone_number, u.mail" +
-                " FROM Student s " +
-                "INNER JOIN Member m ON u.user_id=m.user_id" +
-                "INNER JOIN Department d ON m.dept_code = d.dept_code" +
-                "INNER JOIN Phone p ON p.phone_id= u.user_id" +
-                "WHERE s.student_id =  id;"; asdasd
-        **/
         return  jdbcTemplate.query("SELECT u.firstname, u.lastname, d.dept_name," +
                 "s.student_id, s.cgpa, s.gpa, s.current_semester," +
                 "p.phone_number, u.mail " +
@@ -33,10 +25,8 @@ public class StudentRepository {
                 "WHERE s.student_id = ?;",new Object[] {id}, new StudentInfoMapper());
     }
 
-    public void insertStudent(long id, String firstname, String lastname, String mail, String password, String address, String gender, String birthday, String phone_number, String dept_code){
-     /*   jdbcTemplate.update("INSERT INTO User (user_id, firstname, lastname, mail, password) VALUES (?, ?, ?, ?, ?)",
-        new Object[]{id, firstname, lastname, mail, password});
-        */
+    public void insertStudent(long id, String firstname, String lastname, String mail, String password,
+                              String address, String gender, String birthday, String phone_number, String dept_code){
         jdbcTemplate.update(
                 "INSERT INTO User (user_id, firstname, lastname, mail, password) VALUES (?, ?, ?, ?, ?)",
                 new Object[]{id, firstname, lastname, mail, password});
@@ -79,22 +69,47 @@ public class StudentRepository {
     }
 
     public List<ButtonName> getButtonNames(long id, String semester, int year){
-        return  jdbcTemplate.query("SELECT c.course_code, sec.section_number, c.name " +
+        return  jdbcTemplate.query("SELECT c.course_code, sec.section_number, c.name, sec.course_id, sec.section_id" +
                 "FROM Student s " +
                 "INNER JOIN Takes t ON t.s_id=s.student_id " +
                 "INNER JOIN Section sec ON t.section_id=sec.section_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
                 "WHERE s.student_id= ? AND " +
-                "sec.semester= ? AND sec.year= ?;",new Object[] {id, semester, year}, new ButtonNameMapper());
+                "t.semester= ? AND t.year= ?;",new Object[] {id, semester, year}, new ButtonNameMapper());
     }
 
-    public List<Grades> getGrades(long id, String name){
-        return  jdbcTemplate.query("SELECT a.title, a.type, a.date, r.grade, a.average " +
+    public List<Grades> getGrades(long course_id,long student_id ,long section_id){
+        return  jdbcTemplate.query("SELECT a.title, a.type, a.date, r.grade" +
                 "FROM Result r " +
                 "INNER JOIN Student s ON r.student_id = s.student_id " +
                 "INNER JOIN Assignment a ON a.assignment_id=r.assignment_id " +
-                "INNER JOIN Section sec ON a.section_id=r.section_id " +
+                "INNER JOIN Contains con ON con.assignment_id=a.assignment_id " +
+                "INNER JOIN Section sec ON con.section_id=sec.section_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
-                "WHERE c.name = ? AND s.student_id= ?; ",new Object[] {name, id}, new StudentGradeMapper());
+                "WHERE sec.course_id = ? AND s.student_id= ? and sec.section_id = ?; ",new Object[] {course_id, student_id , section_id}, new StudentGradeMapper());
     }
+    public void updateStudent(long user_id, String password, String mail, String firstname, String lastname,
+                              String address, String date_of_birth, String phone_number){
+        jdbcTemplate.update(
+                "UPDATE User " +
+                        "SET firstname = ?, lastname= ?, mail= ?, password= ? " +
+                        "WHERE user_id = ?;",
+                new Object[]{firstname, lastname, mail, password, user_id}
+        );
+
+        jdbcTemplate.update(
+                "UPDATE Student " +
+                        "SET address= ? , date_of_birth= ? " +
+                        "WHERE student_id = ?;",
+                new Object[]{address, date_of_birth, user_id}
+        );
+
+        jdbcTemplate.update(
+                "UPDATE Phone " +
+                        "SET phone_number = ? " +
+                        "WHERE phone_id = ?;",
+                new Object[]{phone_number, user_id}
+        );
+    }
+
 }

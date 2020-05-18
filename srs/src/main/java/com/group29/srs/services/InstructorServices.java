@@ -29,20 +29,20 @@ public class InstructorServices {
     }
 
     //section_id girmen gerek ona dikkat et.Birde bu section_id yi buttona tıkladıktan sonra elde edersin.Onu da mapliyom
-    public List<LetterGrades> getGrades(long section_id){
-        return instructorRepository.getGrades(section_id);
+    public List<LetterGrades> getGrades(long section_id,long course_id, String semester, int year){
+        return instructorRepository.getGrades( section_id,course_id, semester, year);
     }
 
     public List<ButtonName> getButtonNames(long id, String semester, int year){
         return instructorRepository.getButtonNames(id,semester,year);
     }
-    //buna tekrar bakmak gerekebilir. Her öğrencinin notu ayrı eklenecekse where kısmına studentid(s_id) de konur.
-    public void setLetterGrades(long section_id, String letter_grade){
-        instructorRepository.setLetterGrades(section_id,letter_grade);
+
+    public void setLetterGrades(long section_id, String letter_grade, long student_id,String semester,int year){
+        instructorRepository.setLetterGrades(section_id,letter_grade, student_id, semester,year);
     }
 
-    public List<TeachingAssistantList> getTeachingAssistants(long section_id, long instructor_id){
-        return instructorRepository.getTeachingAssistants(section_id,instructor_id);
+    public List<TeachingAssistantList> getTeachingAssistants(long course_id, long instructor_id){
+        return instructorRepository.getTeachingAssistants(course_id,instructor_id);
     }
 
     public void assignTask(long task_id, String task_type, long instructor_id, long ta_id){
