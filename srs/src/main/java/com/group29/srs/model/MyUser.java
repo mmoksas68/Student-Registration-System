@@ -1,17 +1,22 @@
 package com.group29.srs.model;
 
-public class User {
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class MyUser {
     Long user_id;
     String firstname;
     String lastname;
     String mail;
     String password;
-
-    public User() {
+    UserRole role;
+    public MyUser() {
 
     }
 
-    public User(Long user_id, String firstname, String lastname, String mail, String password) {
+    public MyUser(Long user_id, String firstname, String lastname, String mail, String password) {
         this.user_id = user_id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -59,5 +64,19 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public Set<UserRole> getUserRole() {
+        Set<UserRole> set = new HashSet<UserRole>();
+        set.add(role);
+        return set;
     }
 }
