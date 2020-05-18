@@ -1,5 +1,6 @@
 package com.group29.srs.services;
 
+import com.group29.srs.model.Grades;
 import com.group29.srs.model.StudentInfo;
 import com.group29.srs.model.TakenCourses;
 import com.group29.srs.model.WeeklySchedule;
@@ -27,5 +28,9 @@ public class StudentServices {
 
     public List<TakenCourses> getTakenCourses(Long id, String semester, int year ){
         return studentRepository.getTakenCourses(id, semester , year);
+    }
+
+    public List<Grades> getGrades(Long id, String name ){
+        return studentRepository.getGrades(id, name);
     }
 }

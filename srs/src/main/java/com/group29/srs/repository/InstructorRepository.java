@@ -1,13 +1,7 @@
 package com.group29.srs.repository;
 
-import com.group29.srs.mappers.ButtonNameMapper;
-import com.group29.srs.mappers.InstructorGivenCoursesMapper;
-import com.group29.srs.mappers.InstructorInfoMapper;
-import com.group29.srs.mappers.WeeklyScheduleMapper;
-import com.group29.srs.model.ButtonName;
-import com.group29.srs.model.InstructorGivenCourses;
-import com.group29.srs.model.Ta_InstructorInfo;
-import com.group29.srs.model.WeeklySchedule;
+import com.group29.srs.mappers.*;
+import com.group29.srs.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -76,12 +70,28 @@ public class InstructorRepository {
     }
 
     public List<ButtonName> getButtonNames(long id, String semester, int year){
-        return  jdbcTemplate.query("SELECT c.course_code, sec.section_number, c.name " +
+        return  jdbcTemplate.query("SELECT c.course_code, sec.section_number, c.name, sec.section_id " +
                 "FROM Instructor i " +
                 "INNER JOIN Section sec ON sec.teacher_id=i.instructor_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
                 "WHERE i.instructor_id= ? AND " +
                 "sec.semester= ? AND sec.year= ? ;",new Object[] {id, semester, year}, new ButtonNameMapper());
+    }
+
+    public List<LetterGrades> getGrades(long section_id){
+        return  jdbcTemplate.query("SELECT u.user_id, u.firstname, u.lastname, t.final_grade " +
+                "FROM section sec " +
+                "INNER JOIN Takes t ON t.section_id = sec.section_id " +
+                "INNER JOIN Student s ON s.student_id = t.s_id " +
+                "INNER JOIN User u ON s.student_id = u.user_id " +
+                "WHERE sec.section_id = ?; ",new Object[] {section_id}, new InstructorGradeMapper());
+    }
+
+    //buna tekrar bakmak gerekebilir. Her öğrencinin notu ayrı eklenecekse where kısmına studentid(s_id) de konur.
+    public void setLetterGrades(long section_id, String letter_grade){
+        jdbcTemplate.update("UPDATE Takes t " +
+                "SET letter_grade = ? " +
+                "WHERE t.section_id = ?; ",new Object[] {section_id,letter_grade});
     }
 
 }

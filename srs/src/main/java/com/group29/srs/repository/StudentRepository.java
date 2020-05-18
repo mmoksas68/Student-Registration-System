@@ -1,13 +1,7 @@
 package com.group29.srs.repository;
 
-import com.group29.srs.mappers.ButtonNameMapper;
-import com.group29.srs.mappers.StudentInfoMapper;
-import com.group29.srs.mappers.TakenCoursesMapper;
-import com.group29.srs.mappers.WeeklyScheduleMapper;
-import com.group29.srs.model.ButtonName;
-import com.group29.srs.model.StudentInfo;
-import com.group29.srs.model.TakenCourses;
-import com.group29.srs.model.WeeklySchedule;
+import com.group29.srs.mappers.*;
+import com.group29.srs.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -92,5 +86,15 @@ public class StudentRepository {
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
                 "WHERE s.student_id= ? AND " +
                 "sec.semester= ? AND sec.year= ?;",new Object[] {id, semester, year}, new ButtonNameMapper());
+    }
+
+    public List<Grades> getGrades(long id, String name){
+        return  jdbcTemplate.query("SELECT a.title, a.type, a.date, r.grade, a.average " +
+                "FROM Result r " +
+                "INNER JOIN Student s ON r.student_id = s.student_id " +
+                "INNER JOIN Assignment a ON a.assignment_id=r.assignment_id " +
+                "INNER JOIN Section sec ON a.section_id=r.section_id " +
+                "INNER JOIN Course c ON c.course_id = sec.course_id " +
+                "WHERE c.name = ? AND s.student_id= ?; ",new Object[] {name, id}, new StudentGradeMapper());
     }
 }

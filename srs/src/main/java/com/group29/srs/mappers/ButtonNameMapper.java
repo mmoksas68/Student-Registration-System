@@ -13,6 +13,7 @@ public class ButtonNameMapper implements RowMapper<ButtonName> {
         bn.setCourse_code(resultSet.getString("firstname"));
         bn.setName(resultSet.getString("lastname"));
         bn.setSection_number(resultSet.getInt("mail"));
+        bn.setSection_id(resultSet.getLong("section_id"));
         return bn;
     }
 }
