@@ -15,12 +15,6 @@
 
 </head>
 <body>
-
-      <th:block th:each="student : ${students}">
-            <h1 th:text="${'helel' + student.lastName}">...</h1>
-            <h1  th:text="${student.firstName}">...</h1>
-      </th:block>
-
      <!-- üst taraf navigasyon bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
         
@@ -58,7 +52,7 @@
                 <a class="nav-link" href="#">Car Stickers<span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="#">Logout <i class="fas fa-sign-out-alt"></i><span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/logout/">Logout <i class="fas fa-sign-out-alt"></i><span class="sr-only">(current)</span></a>
               </li>             
             </ul>
         </div>
@@ -74,9 +68,9 @@
               </div>
               <img th:src="@{/assets/vesikalık.jpg}" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title text-center">Muhammed Musab Okşaş</h5>
-                <h5 class="card-text text-center">Computer Science</h5>
-                <h6 class="card-text text-center">21602984</h6>
+                <h5 class="card-title text-center" th:text="${student.getFirstname()} + ' ' + ${student.getLastname()}"></h5>
+                <h5 class="card-text text-center" th:text="${student.getDept_name()}"></h5>
+                <h6 class="card-text text-center" th:text="${student.getStudent_id()}"></h6>
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
@@ -84,15 +78,15 @@
                       <tbody>
                         <tr>
                           <th scope="row">CGPA</th>
-                          <td>3.16</td>
+                          <td th:text="${student.getCgpa()}"></td>
                         </tr>
                         <tr>
                           <th scope="row">GPA</th>
-                          <td>3.65</td>
+                          <td th:text="${student.getGpa()}"></td>
                         </tr>
                         <tr>
-                          <th scope="row">Class</th>
-                          <td>3</td>
+                          <th scope="row">Current Semester</th>
+                          <td th:text="${student.getCurrent_semester()}"></td>
                         </tr>
                       </tbody>
                     </table>
@@ -102,16 +96,16 @@
                       <tbody>
                         <tr>
                           <th scope="row">Mobile Phone:</th>
-                          <th>5525585706</th>
+                          <th th:text="${student.getPhone_number()}"></th>
                         </tr>
                       </tbody>
                     </table>
                 </li>
-                <li class="list-group-item">Contact Mail:</li>
-                <li class="list-group-item" style="font-size: 75%;">musab.oksas@ug.bilkent.edu.tr</li>
+                <li class="list-group-item" >Contact Mail:</li>
+                <li class="list-group-item" style="font-size: 75%;" th:text="${student.getMail()}"></li>
               </ul>
               <div class="card-body">
-                <a href="#" class="card-link">Update Information <i class="fas fa-user-edit"></i></a>
+                <a href="#" class="card-link">Update Information <i class="fas fa-myUser-edit"></i></a>
               </div>
             </div>
 
@@ -135,68 +129,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">CS 421-1</th>
-                      <td>Computer Networks</td>
-                      <td>Ezhan Karaşan</td>
-                      <td>3</td>
+                    <tr th:each="course, itr: ${courses_taken}">
+                      <th scope="row" th:text="${course.getCourse_code()} + '-' + ${course.getSection_number()}"></th>
+                      <td th:text="${course.getName()}"></td>
+                      <td th:text="${course.getFirstname()} + ' ' + ${course.getLastname()}">Ezhan Karaşan</td>
+                      <td th:text="${course.getCredits()}"></td>
                       <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>  
-                    </tr>
-                    <tr>
-                      <th scope="row">CS 353-3</th>
-                      <td>Database Systems</td>
-                      <td>Özgür Ulusoy</td>
-                      <td>3</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">CS 464-4</th>
-                      <td>Introduction to Machine Learning</td>
-                      <td>Abdullah Ercüment Çiçek</td>
-                      <td>3</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">PSYC 102-4</th>
-                      <td>Introduction to Social Psychology</td>
-                      <td>Jale Gürzumar</td>
-                      <td>3</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">CS 342-1</th>
-                      <td>Operating Systems</td>
-                      <td>İbrahim Körpeoğlu</td>
-                      <td>4</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
-                        <a href="#"><i class="set fas fa-tasks"></i></a>
-                        <a href="#"><i class="set fab fa-weebly"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">CS 315-1</th>
-                      <td>Programming Languages</td>
-                      <td>H.Altay Güvenir</td>
-                      <td>3</td>
-                      <td>
-                        <a href="#"><i class="set fas fa-book-open"></i></a> 
+                        <a href="#"><i class="set fas fa-book-open"></i></a>
                         <a href="#"><i class="set fas fa-tasks"></i></a>
                         <a href="#"><i class="set fab fa-weebly"></i></a>
                       </td>

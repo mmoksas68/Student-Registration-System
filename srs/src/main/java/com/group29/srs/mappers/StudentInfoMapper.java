@@ -17,7 +17,7 @@ public class StudentInfoMapper implements RowMapper<StudentInfo> {
         stinfo.setPhone_number(resultSet.getString("phone_number"));
         stinfo.setStudent_id(resultSet.getLong("student_id"));
         stinfo.setGpa(resultSet.getDouble("gpa"));
-        stinfo.setCpga(resultSet.getDouble("cpga"));
+        stinfo.setCgpa(resultSet.getDouble("cgpa"));
         stinfo.setCurrent_semester(resultSet.getString("current_semester"));
         return stinfo;
     }

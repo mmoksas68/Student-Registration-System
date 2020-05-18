@@ -3,16 +3,10 @@ package com.group29.srs.model;
 public class TeachingAssistantGivenCourses {
     String course_code;
     String name;
-    String classroom;
-    String firstname;
-    String lastname;
 
-    public TeachingAssistantGivenCourses(String course_code, String name, String classroom, String firstname, String lastname) {
+    public TeachingAssistantGivenCourses(String course_code, String name) {
         this.course_code = course_code;
         this.name = name;
-        this.classroom = classroom;
-        this.firstname = firstname;
-        this.lastname = lastname;
     }
 
     public TeachingAssistantGivenCourses() {
@@ -32,29 +26,5 @@ public class TeachingAssistantGivenCourses {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getClassroom() {
-        return classroom;
-    }
-
-    public void setClassroom(String classroom) {
-        this.classroom = classroom;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 }

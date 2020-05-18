@@ -8,13 +8,13 @@ public class StudentInfo {
     String phone_number;
     Long student_id;
     Double gpa;
-    Double cpga;
+    Double cgpa;
     String current_semester;
 
     public StudentInfo() {
     }
 
-    public StudentInfo(String firstname, String lastname, String mail, String dept_name, String phone_number, Long student_id, Double gpa, Double cpga, String current_semester) {
+    public StudentInfo(String firstname, String lastname, String mail, String dept_name, String phone_number, Long student_id, Double gpa, Double cgpa, String current_semester) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.mail = mail;
@@ -22,7 +22,7 @@ public class StudentInfo {
         this.phone_number = phone_number;
         this.student_id = student_id;
         this.gpa = gpa;
-        this.cpga = cpga;
+        this.cgpa = cgpa;
         this.current_semester = current_semester;
     }
 
@@ -82,12 +82,12 @@ public class StudentInfo {
         this.gpa = gpa;
     }
 
-    public Double getCpga() {
-        return cpga;
+    public Double getCgpa() {
+        return cgpa;
     }
 
-    public void setCpga(Double cpga) {
-        this.cpga = cpga;
+    public void setCgpa(Double cgpa) {
+        this.cgpa = cgpa;
     }
 
     public String getCurrent_semester() {
