@@ -5,8 +5,10 @@ public class Grades {
     String date;
     String type;
     int grade;
+    String coursename;
 
-    public Grades(String title, String date, String type,  int grade) {
+    public Grades(String coursename, String title, String date, String type,  int grade) {
+        this.coursename =coursename;
         this.title = title;
         this.date = date;
         this.type = type;
@@ -46,5 +48,13 @@ public class Grades {
 
     public void setGrade(int grade) {
         this.grade = grade;
+    }
+
+    public String getCoursename() {
+        return coursename;
+    }
+
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
     }
 }

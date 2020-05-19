@@ -31,8 +31,8 @@ public class StudentServices {
         return studentRepository.getButtonNames(id, semester , year);
     }
 
-    public List<Grades> getGrades(long course_id,long student_id ,long section_id){
-        return studentRepository.getGrades(course_id,student_id ,section_id);
+    public List<Grades> getGrades(String semester,long student_id, int year){
+        return studentRepository.getGrades(semester ,student_id, year );
     }
 
     public void updateStudent(long user_id, String password, String mail, String firstname, String lastname,
