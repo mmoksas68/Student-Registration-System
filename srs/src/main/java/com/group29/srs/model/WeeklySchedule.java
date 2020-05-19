@@ -1,7 +1,6 @@
 package com.group29.srs.model;
 
 import java.sql.Time;
-
 public class WeeklySchedule {
     String course_code;
     String classroom ;
@@ -9,7 +8,7 @@ public class WeeklySchedule {
     Time start_time;
     Time end_time;
     String start_day;
-
+    int timeSlot;
     public WeeklySchedule(String course_code, String classroom, int section_number, Time start_time, Time end_time, String start_day) {
         this.course_code = course_code;
         this.classroom = classroom;
@@ -20,6 +19,36 @@ public class WeeklySchedule {
     }
 
     public WeeklySchedule() {
+    }
+
+    public void arrangeTimeSlot(){
+        String[] days = {"mon", "tue", "wed", "thu", "fri"};
+        Time[] t = new Time[9];
+        for (int i=0; i < 9; i++){
+            t [i] = new Time(8 + i, 40,0);
+        }
+
+
+        for (int i=0; i < days.length; i++){
+            if (days[i].equals(start_day))
+            {
+                timeSlot = i*9;
+                break;
+            }
+        }
+
+
+        for (int i=0; i < t.length;i++){
+            if (start_time.getTime() == t[i].getTime()){
+                timeSlot+=i;
+                break;
+            }
+            if (i+1 == t.length)
+                timeSlot = -1;
+        }
+
+
+
     }
 
     public String getCourse_code() {
@@ -68,5 +97,26 @@ public class WeeklySchedule {
 
     public void setStart_day(String start_day) {
         this.start_day = start_day;
+    }
+
+    @Override
+    public String toString() {
+        return "WeeklySchedule{" +
+                "course_code='" + course_code + '\'' +
+                ", classroom='" + classroom + '\'' +
+                ", section_number=" + section_number +
+                ", start_time=" + start_time +
+                ", end_time=" + end_time +
+                ", start_day='" + start_day + '\'' +
+                ", timeSlot=" + timeSlot +
+                '}';
+    }
+
+    public int getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(int timeSlot) {
+        this.timeSlot = timeSlot;
     }
 }

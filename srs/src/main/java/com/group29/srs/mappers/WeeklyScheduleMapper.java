@@ -16,6 +16,7 @@ public class WeeklyScheduleMapper implements RowMapper<WeeklySchedule> {
         ws.setStart_time(resultSet.getTime("start_time"));
         ws.setStart_day(resultSet.getString("start_day"));
         ws.setClassroom(resultSet.getString("classroom"));
+        ws.arrangeTimeSlot();
         return ws;
     }
 }
