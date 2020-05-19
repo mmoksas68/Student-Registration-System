@@ -1,8 +1,6 @@
 package com.group29.srs.services;
 
-import com.group29.srs.model.Ta_InstructorInfo;
-import com.group29.srs.model.TeachingAssistantGivenCourses;
-import com.group29.srs.model.WeeklySchedule;
+import com.group29.srs.model.*;
 import com.group29.srs.repository.TeachingAssistantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +25,19 @@ public class TeachingAssistantServices {
 
     public List<WeeklySchedule> getTeachingAssistantWeeklySchedule(Long id, String semester, int year ){
         return teachingAssistantRepository.getTeachingAssistantWeeklySchedule(id, semester , year);
+    }
+
+    public List<AssignmentGrades> getStudents(long ta_id,String semester, int year){
+        return teachingAssistantRepository.getStudents(ta_id,semester,year);
+    }
+
+    public List<ButtonName> getButtonNames(long id, String semester, int year){
+        return teachingAssistantRepository.getButtonNames( id, semester, year);
+    }
+
+    public void setStudentGrades(long assignment_id, String title, String type, String date,
+                                 Double average, Long course_id, Long section_id, int grade,Long student_id){
+         teachingAssistantRepository.setStudentGrades(assignment_id,title,type,date,
+                 average, course_id, section_id, grade,student_id);
     }
 }

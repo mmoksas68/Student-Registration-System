@@ -1,8 +1,6 @@
 package com.group29.srs.services;
 
-import com.group29.srs.model.InstructorGivenCourses;
-import com.group29.srs.model.Ta_InstructorInfo;
-import com.group29.srs.model.WeeklySchedule;
+import com.group29.srs.model.*;
 import com.group29.srs.repository.InstructorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +26,26 @@ public class InstructorServices {
 
     public List<WeeklySchedule> getInstructorWeeklySchedule(Long id, String semester, int year ){
         return instructorRepository.getInstructorWeeklySchedule(id, semester , year);
+    }
+
+    //section_id girmen gerek ona dikkat et.Birde bu section_id yi buttona tıkladıktan sonra elde edersin.Onu da mapliyom
+    public List<LetterGrades> getGrades(long instructor_id, String semester, int year){
+        return instructorRepository.getGrades(instructor_id, semester, year);
+    }
+
+    public List<ButtonName> getButtonNames(long id, String semester, int year){
+        return instructorRepository.getButtonNames(id,semester,year);
+    }
+
+    public void setLetterGrades(long section_id, String letter_grade, long student_id,String semester,int year){
+        instructorRepository.setLetterGrades(section_id,letter_grade, student_id, semester,year);
+    }
+
+    public List<TeachingAssistantList> getTeachingAssistants(long instructor_id, String semester, int year){
+        return instructorRepository.getTeachingAssistants(instructor_id, semester, year);
+    }
+
+    public void assignTask(long task_id, String task_type, long instructor_id, long ta_id){
+        instructorRepository.assignTask(task_id, task_type,instructor_id,ta_id);
     }
 }

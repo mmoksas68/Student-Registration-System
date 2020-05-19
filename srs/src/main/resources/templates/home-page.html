@@ -28,7 +28,7 @@
                 <a class="nav-link current" href="#">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="#">Grades <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="'/student/'+${student.getStudent_id()}+'/grades'">Grades <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="#">Attendaces <span class="sr-only">(current)</span></a>
@@ -158,82 +158,36 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th cclass="smallTh" scope="row">08:40 - 09:30</th>
-                      <td></td>
-                      <td class="set set-3">CS 353-3<br>(EB-104)</td>
-                      <td></td>
-                      <td></td>
-                      <td class="set set-4">PSYC 102-4<br>(T-272)</td>
-                    </tr>
-                    <tr>
-                      <th class="smallTh" scope="row">09:40 - 10:30</th>
-                      <td></td>
-                      <td class="set set-3">CS 353-3<br>(EB-104)</td>
-                      <td></td>
-                      <td></td>
-                      <td class="set set-4">PSYC 102-4<br>(T-272)</td>
-                    </tr>
-                    <tr>
-                      <th class="smallTh" scope="row">10:40 - 11:30</th>
-                      <td></td>
-                      <td class="set set-4">PSYC 102-4<br>(T-272)</td>
-                      <td></td>
-                      <td class="set set-3">CS 353-3<br>(EB-104)</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th class="smallTh" scope="row">11:40 - 12:30</th>
-                      <td></td>
-                      <td class="set set-4">PSYC 102-4<br>(T-272)</td>
-                      <td></td>
-                      <td class="set set-3">CS 353-3<br>(EB-104)</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th class="smallTh" scope="row">12:40 - 13:30</th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th class="smallTh" scope="row">13:40 - 14:30</th>
-                      <td></td>
-                      <td class="set set-1">CS 315-1<br>(EB-204)</td>
-                      <td class="set set-2">CS 342-1<br>(EE-05)</td>
-                      <td class="set set-5">CS 421-1<br>(EE-04)</td>
-                      <td class="set set-6">CS 464-2<br>(EE-04)</td>
-                    </tr>
-                    <tr>
-                      <th class="smallTh" scope="row">14:40 - 15:30</th>
-                      <td></td>
-                      <td class="set set-1">CS 315-1<br>(EB-204)</td>
-                      <td class="set set-2">CS 342-1<br>(EE-05)</td>
-                      <td class="set set-5">CS 421-1<br>(EE-04)</td>
-                      <td class="set set-6">CS 464-2<br>(EE-04)</td>
-                    </tr>
-                    <tr>
-                      <th class="smallTh" scope="row">15:40 - 16:30</th>
-                      <td class="set set-5">CS 421-1<br>(EE-04)</td>
-                      <td class="set set-6">CS 464-2<br>(EE-04)</td>
-                      <td></td>
-                      <td class="set set-1">CS 315-1<br>(EB-204)</td>
-                      <td class="set set-2">CS 342-1<br>(EE-05)</td>
-                    </tr>
-                    <tr>
-                      <th class="smallTh" scope="row">16:40 - 17:30</th>
-                      <td class="set set-5">CS 421-1<br>(EE-04)</td>
-                      <td class="set set-6">CS 464-2<br>(EE-04)</td>
-                      <td></td>
-                      <td class="set set-1">CS 315-1<br>(EB-204)</td>
-                      <td class="set set-2">CS 342-1<br>(EE-05)</td>
-                    </tr>
+                    <option th:each="i: ${#numbers.sequence(0,8)}">
+                      <tr>
+                        <th cclass="smallTh" scope="row" th:text="${i+8}+':40 - '+${i+9}+':30'">08:40 - 09:30</th>
+                        <span  th:each="j: ${#numbers.sequence(0, 4)}" th:with="k = ${true}">
+                            <span th:switch="${available[j*9+i]}">
+                                <span th:case="0">
+                                    <td></td>
+                                </span>
+                                <span th:case="1">
+                                        <span th:each="course: ${course_schedules}" >
+                                            <span  th:switch="${course.getTimeSlot()}">
+                                                <td th:case="${j*9+i}" th:with="k = ${false}" th:class="'set' + ' ' + 'set-' + ${j+1}">
+                                                    <span th:text="${course.getCourse_code()}+'-'+${course.getSection_number()}">
+                                                    </span>
+                                                    <br>
+                                                    <span th:text="${course.getClassroom()}">
+                                                    </span>
+                                                </td>
+                                            </span>
+                                        </span >
+                                </span>
+                            </span>
+                        </span >
+                      </tr>
+                    </option>
                   </tbody>
                 </table>
             </div>       
         </div>
+
 
     </div>
     <script th:src="@{/js/homePage.js}"></script>
