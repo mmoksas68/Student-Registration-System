@@ -10,6 +10,7 @@ public class StudentGradeMapper implements RowMapper<Grades> {
     @Override
     public Grades mapRow(ResultSet resultSet, int index) throws SQLException {
         Grades g = new Grades();
+        g.setCoursename(resultSet.getString("name"));
         g.setTitle(resultSet.getString("title"));
         g.setDate(resultSet.getString("date"));
         g.setType(resultSet.getString("type"));
