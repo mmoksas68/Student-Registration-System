@@ -61,7 +61,7 @@ public class TeachingAssistantRepository {
                 "INNER JOIN Assists a ON a.ta_id = ta.ta_id " +
                 "INNER JOIN Course c ON c.course_id = a.course_id " +
                 "INNER JOIN Section sec ON c.course_id= sec.course_id " +
-                "INNER JOIN Has h ON sec.section_id = h.section_id " +
+                "INNER JOIN Has h ON sec.section_id = h.section_id AND sec.course_id = h.course_id " +
                 "INNER JOIN TimeSlot ts ON ts.time_id = h.time_id " +
                 "WHERE ta.ta_id= ? AND sec.semester= ? " +
                 "AND sec.year= ?;",new Object[] {id, semester, year}, new WeeklyScheduleMapper());
@@ -77,16 +77,17 @@ public class TeachingAssistantRepository {
                 "sec.semester= ? AND sec.year= ?;",new Object[] {id, semester, year}, new ButtonNameMapper());
     }
 
-    public List<AssignmentGrades> getStudents(long section_id, long course_id,String semester, int year){
-        return  jdbcTemplate.query("SELECT distinct u.user_id, u.firstname, u.lastname " +
-                "FROM Section sec " +
-                "INNER JOIN Contains con ON con.section_id=sec.section_id " +
-                "INNER JOIN Assignment a ON a.assignment_id = con.assignment_id " +
-                "INNER JOIN Result r ON r.assignment_id= a.assignment_id " +
-                "INNER JOIN Student s ON s.student_id = r.student_id " +
+    public List<AssignmentGrades> getStudents(long ta_id,String semester, int year){
+        return  jdbcTemplate.query("SELECT distinct u.user_id, u.firstname, u.lastname, c.course_code, sec.section_number " +
+                "FROM TeachingAssistant ta " +
+                "INNER JOIN Assists asi ON ta.ta_id=asi.ta_id " +
+                "INNER JOIN Course c ON c.course_id = asi.course_id " +
+                "INNER JOIN Section sec ON sec.course_id = c.course_id " +
+                "INNER JOIN Takes t on t.course_id = sec.course_id and t.section_id = sec.section_id " +
+                "INNER JOIN Student s ON s.student_id = t.s_id " +
                 "INNER JOIN User u ON s.student_id = u.user_id " +
-                "WHERE sec.section_id = ? AND sec.course_id = ? " +
-                "AND  sec.semester= ? AND sec.year= ?; ",new Object[] {section_id,course_id,semester,year}, new TeachingAssistantGradeMapper());
+                "WHERE ta.ta_id = ? " +
+                "AND  t.semester= ? AND t.year= ?; ",new Object[] {ta_id,semester,year}, new TeachingAssistantGradeMapper());
     }
 
 
@@ -101,5 +102,5 @@ public class TeachingAssistantRepository {
                 "SET grade = ? " +
                 "WHERE r.student_id = ? AND r.assignment_id= ?; ",
                 new Object[] {grade,student_id, assignment_id});
-    }
+        }
 }

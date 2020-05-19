@@ -4,11 +4,31 @@ public class AssignmentGrades {
     Long user_id;
     String firstname;
     String lastname;
+    String course_code;
+    int section_number;
 
-    public AssignmentGrades(Long user_id, String firstname, String lastname) {
+    public AssignmentGrades(Long user_id, String firstname, String lastname, String course_code, int section_number) {
         this.user_id = user_id;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.course_code = course_code;
+        this.section_number = section_number;
+    }
+
+    public String getCourse_code() {
+        return course_code;
+    }
+
+    public void setCourse_code(String course_code) {
+        this.course_code = course_code;
+    }
+
+    public int getSection_number() {
+        return section_number;
+    }
+
+    public void setSection_number(int section_number) {
+        this.section_number = section_number;
     }
 
     public AssignmentGrades() {

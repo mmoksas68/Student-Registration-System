@@ -14,6 +14,8 @@ public class InstructorGradeMapper implements RowMapper<LetterGrades> {
         lg.setLastname(resultSet.getString("lastname"));
         lg.setFinal_grade(resultSet.getDouble("final_grade"));
         lg.setUser_id(resultSet.getLong("user_id"));
+        lg.setCourse_code(resultSet.getString("course_code"));
+        lg.setSection_id(resultSet.getLong("section_id"));
         return lg;
     }
 }

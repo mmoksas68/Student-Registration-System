@@ -27,8 +27,8 @@ public class TeachingAssistantServices {
         return teachingAssistantRepository.getTeachingAssistantWeeklySchedule(id, semester , year);
     }
 
-    public List<AssignmentGrades> getStudents(long section_id, long course_id,String semester, int year){
-        return teachingAssistantRepository.getStudents(section_id,course_id,semester,year);
+    public List<AssignmentGrades> getStudents(long ta_id,String semester, int year){
+        return teachingAssistantRepository.getStudents(ta_id,semester,year);
     }
 
     public List<ButtonName> getButtonNames(long id, String semester, int year){
