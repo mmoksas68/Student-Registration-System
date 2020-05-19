@@ -40,10 +40,10 @@ public class StudentController {
 
     @GetMapping("/{studentID}/grades")
     public String getStudentGrades(@PathVariable(value = "studentID") Long ID, Model model){
-        List<Grades> stgrade = studentServices.getGrades("spring",ID,2020 );
-        for(int i=0;i<stgrade.size();i++){
-                System.out.println(stgrade.get(i).getTitle());
-        }
+        ArrayList<ArrayList<Grades>> stgrade = studentServices.getGrades("spring",ID,2020 );
+        model.addAttribute("student", studentServices.getStudentInfoById(ID).get(0) );
+        model.addAttribute("grades", stgrade);
+
         return "grades";
     }
 }

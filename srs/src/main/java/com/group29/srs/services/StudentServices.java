@@ -5,6 +5,7 @@ import com.group29.srs.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class StudentServices {
@@ -31,8 +32,21 @@ public class StudentServices {
         return studentRepository.getButtonNames(id, semester , year);
     }
 
-    public List<Grades> getGrades(String semester,long student_id, int year){
-        return studentRepository.getGrades(semester ,student_id, year );
+    public ArrayList<ArrayList<Grades>> getGrades(String semester,long student_id, int year){
+        List<Grades> grades = studentRepository.getGrades(semester ,student_id, year );
+        ArrayList<ArrayList<Grades>> course_grades =  new ArrayList<ArrayList<Grades>>();
+        String current_course = "";
+        int current_counter = -1;
+        for (int i=0; i<grades.size(); i++){
+            if (!current_course.equals(grades.get(i).getCoursename())){
+                course_grades.add(new ArrayList<>());
+                current_counter++;
+                current_course = grades.get(i).getCoursename();
+            }
+            course_grades.get(current_counter).add(grades.get(i));
+        }
+
+        return course_grades;
     }
 
     public void updateStudent(long user_id, String password, String mail, String firstname, String lastname,

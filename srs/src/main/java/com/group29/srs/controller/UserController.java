@@ -29,9 +29,13 @@ public class UserController {
     public String postLogin(@ModelAttribute(value = "user") MyUser myUser, BindingResult errors, Model model){
         securityService.autoLogin(String.valueOf(myUser.getUser_id()), myUser.getPassword());
         String userID = securityService.findLoggedInUsername();
-
         if (userID != null){
-            return "redirect:/student/"+ userID;
+            MyUser user = userServices.getUserByID(myUser.getUser_id());
+            if (user.getRole().getRole().equals("student"))
+                return "redirect:/student/"+ userID;
+            if (user.getRole().getRole().equals("instructor"))
+                return "redirect:/instructor/"+ userID;
+                return "redirect:/ta/"+ userID;
         }
         else{
             model.addAttribute("problem", true);
@@ -46,8 +50,14 @@ public class UserController {
     public String getLogin(@ModelAttribute(value = "user") MyUser myUser, BindingResult errors, Model model)
     {
         String userID = securityService.findLoggedInUsername();
+        System.out.println(userID);
         if (userID != null){
-            return "redirect:/student/"+ userID;
+            MyUser user = userServices.getUserByID(Long.valueOf(userID));
+            if (user.getRole().getRole().equals("student"))
+                return "redirect:/student/"+ userID;
+            if (user.getRole().getRole().equals("instructor"))
+                return "redirect:/instructor/"+ userID;
+            return "redirect:/ta/"+ userID;
         }
         model.addAttribute("problem", false);
         model.addAttribute("message", "");
