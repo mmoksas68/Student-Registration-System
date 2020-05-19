@@ -78,15 +78,16 @@ public class StudentRepository {
                 "t.semester= ? AND t.year= ?;",new Object[] {id, semester, year}, new ButtonNameMapper());
     }
 
-    public List<Grades> getGrades(long course_id,long student_id ,long section_id){
-        return  jdbcTemplate.query("SELECT a.title, a.type, a.date, r.grade" +
+    public List<Grades> getGrades(String semester,long student_id, int year){
+        return  jdbcTemplate.query("SELECT c.name ,a.title, a.type, a.date, r.grade " +
                 "FROM Result r " +
                 "INNER JOIN Student s ON r.student_id = s.student_id " +
                 "INNER JOIN Assignment a ON a.assignment_id=r.assignment_id " +
                 "INNER JOIN Contains con ON con.assignment_id=a.assignment_id " +
                 "INNER JOIN Section sec ON con.section_id=sec.section_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
-                "WHERE sec.course_id = ? AND s.student_id= ? and sec.section_id = ?; ",new Object[] {course_id, student_id , section_id}, new StudentGradeMapper());
+                "INNER JOIN Takes t on t.section_id = sec.section_id and t.s_id = s.student_id "+
+                "WHERE sec.semester = ? AND s.student_id= ? AND sec.year = ?; ",new Object[] {semester, student_id, year}, new StudentGradeMapper());
     }
     public void updateStudent(long user_id, String password, String mail, String firstname, String lastname,
                               String address, String date_of_birth, String phone_number){
