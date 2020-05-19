@@ -48,9 +48,9 @@ public class StudentRepository {
                 "sec.classroom, ts.start_day, ts.start_time, ts.end_time " +
                 "FROM Student s " +
                 "INNER JOIN Takes t ON t.s_id=s.student_id " +
-                "INNER JOIN Section sec ON t.section_id=sec.section_id " +
+                "INNER JOIN Section sec ON t.section_id=sec.section_id AND t.course_id=sec.course_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
-                "INNER JOIN Has h ON sec.section_id = h.section_id " +
+                "INNER JOIN Has h ON sec.section_id = h.section_id AND sec.course_id = h.course_id " +
                 "INNER JOIN TimeSlot ts ON ts.time_id = h.time_id " +
                 "WHERE s.student_id= ? AND " +
                 "t.semester= ? AND t.year= ?;",new Object[] {id, semester, year}, new WeeklyScheduleMapper());
@@ -60,7 +60,7 @@ public class StudentRepository {
         return  jdbcTemplate.query("SELECT c.course_code, sec.section_number," +
                 " c.name,u.firstname, u.lastname,c.credits FROM Student s " +
                 "INNER JOIN Takes t ON t.s_id=s.student_id " +
-                "INNER JOIN Section sec ON t.section_id=sec.section_id " +
+                "INNER JOIN Section sec ON t.section_id=sec.section_id AND t.course=sec.course" +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
                 "INNER JOIN Instructor i ON i.instructor_id= sec.teacher_id " +
                 "INNER JOIN User u ON i.instructor_id=u.user_id " +
@@ -72,7 +72,7 @@ public class StudentRepository {
         return  jdbcTemplate.query("SELECT c.course_code, sec.section_number, c.name, sec.course_id, sec.section_id" +
                 "FROM Student s " +
                 "INNER JOIN Takes t ON t.s_id=s.student_id " +
-                "INNER JOIN Section sec ON t.section_id=sec.section_id " +
+                "INNER JOIN Section sec ON t.section_id=sec.section_id AND t.course_id=sec.course_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
                 "WHERE s.student_id= ? AND " +
                 "t.semester= ? AND t.year= ?;",new Object[] {id, semester, year}, new ButtonNameMapper());
@@ -84,9 +84,9 @@ public class StudentRepository {
                 "INNER JOIN Student s ON r.student_id = s.student_id " +
                 "INNER JOIN Assignment a ON a.assignment_id=r.assignment_id " +
                 "INNER JOIN Contains con ON con.assignment_id=a.assignment_id " +
-                "INNER JOIN Section sec ON con.section_id=sec.section_id " +
+                "INNER JOIN Section sec ON con.section_id=sec.section_id AND con.course_id=sec.course_id" +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
-                "INNER JOIN Takes t on t.section_id = sec.section_id and t.s_id = s.student_id "+
+                "INNER JOIN Takes t on t.section_id = sec.section_id AND t.s_id = s.student_id AND t.course_id = sec.course_id "+
                 "WHERE sec.semester = ? AND s.student_id= ? AND sec.year = ?; ",new Object[] {semester, student_id, year}, new StudentGradeMapper());
     }
     public void updateStudent(long user_id, String password, String mail, String firstname, String lastname,

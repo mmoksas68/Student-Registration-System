@@ -29,8 +29,8 @@ public class InstructorServices {
     }
 
     //section_id girmen gerek ona dikkat et.Birde bu section_id yi buttona tıkladıktan sonra elde edersin.Onu da mapliyom
-    public List<LetterGrades> getGrades(long section_id,long course_id, String semester, int year){
-        return instructorRepository.getGrades( section_id,course_id, semester, year);
+    public List<LetterGrades> getGrades(long instructor_id, String semester, int year){
+        return instructorRepository.getGrades(instructor_id, semester, year);
     }
 
     public List<ButtonName> getButtonNames(long id, String semester, int year){
@@ -41,8 +41,8 @@ public class InstructorServices {
         instructorRepository.setLetterGrades(section_id,letter_grade, student_id, semester,year);
     }
 
-    public List<TeachingAssistantList> getTeachingAssistants(long course_id, long instructor_id){
-        return instructorRepository.getTeachingAssistants(course_id,instructor_id);
+    public List<TeachingAssistantList> getTeachingAssistants(long instructor_id, String semester, int year){
+        return instructorRepository.getTeachingAssistants(instructor_id, semester, year);
     }
 
     public void assignTask(long task_id, String task_type, long instructor_id, long ta_id){
