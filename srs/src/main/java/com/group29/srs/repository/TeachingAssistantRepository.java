@@ -68,7 +68,7 @@ public class TeachingAssistantRepository {
     }
 
     public List<ButtonName> getButtonNames(long id, String semester, int year){
-        return  jdbcTemplate.query("SELECT c.course_code, sec.section_number, c.name " +
+        return  jdbcTemplate.query("SELECT c.course_code, sec.section_number, c.name, sec.section_id, sec.course_id   " +
                 "FROM TeachingAssistant ta " +
                 "INNER JOIN Assists a ON a.ta_id=ta.ta_id " +
                 "INNER JOIN Course c ON c.course_id = a.course_id " +
@@ -77,14 +77,16 @@ public class TeachingAssistantRepository {
                 "sec.semester= ? AND sec.year= ?;",new Object[] {id, semester, year}, new ButtonNameMapper());
     }
 
-    public List<AssignmentGrades> getStudents(long section_id){
-        return  jdbcTemplate.query("SELECT u.user_id, u.firstname, u.lastname " +
-                "FROM section sec " +
-                "INNER JOIN Assignment a ON a.section_id = sec.section_idd " +
+    public List<AssignmentGrades> getStudents(long section_id, long course_id,String semester, int year){
+        return  jdbcTemplate.query("SELECT distinct u.user_id, u.firstname, u.lastname " +
+                "FROM Section sec " +
+                "INNER JOIN Contains con ON con.section_id=sec.section_id " +
+                "INNER JOIN Assignment a ON a.assignment_id = con.assignment_id " +
                 "INNER JOIN Result r ON r.assignment_id= a.assignment_id " +
                 "INNER JOIN Student s ON s.student_id = r.student_id " +
-                "INNER JOIN User u ON s.student_id = u.user_id" +
-                "WHERE sec.section_id = ?; ",new Object[] {section_id}, new TeachingAssistantGradeMapper());
+                "INNER JOIN User u ON s.student_id = u.user_id " +
+                "WHERE sec.section_id = ? AND sec.course_id = ? " +
+                "AND  sec.semester= ? AND sec.year= ?; ",new Object[] {section_id,course_id,semester,year}, new TeachingAssistantGradeMapper());
     }
 
 

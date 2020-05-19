@@ -13,7 +13,6 @@ public class StudentGradeMapper implements RowMapper<Grades> {
         g.setTitle(resultSet.getString("title"));
         g.setDate(resultSet.getString("date"));
         g.setType(resultSet.getString("type"));
-        g.setAverage(resultSet.getDouble("average"));
         g.setGrade(resultSet.getInt("grade"));
         return g;
     }

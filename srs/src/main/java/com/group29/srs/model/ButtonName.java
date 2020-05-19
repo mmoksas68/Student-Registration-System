@@ -5,12 +5,14 @@ public class ButtonName {
     int section_number;
     String name;
     Long section_id;
+    Long course_id;
 
-    public ButtonName(String course_code, int section_number, String name, Long section_id) {
+    public ButtonName(String course_code, int section_number, String name, Long section_id, Long course_id) {
         this.course_code = course_code;
         this.section_number = section_number;
         this.name = name;
         this.section_id = section_id;
+        this.course_id = course_id;
     }
 
     public ButtonName() {
@@ -46,5 +48,12 @@ public class ButtonName {
 
     public void setSection_id(Long section_id) {
         this.section_id = section_id;
+    }
+    public Long getCourse_id() {
+        return section_id;
+    }
+
+    public void setCourse_id(Long course_id) {
+        this.course_id = course_id;
     }
 }
