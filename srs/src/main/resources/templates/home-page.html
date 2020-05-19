@@ -161,7 +161,7 @@
                     <option th:each="i: ${#numbers.sequence(0,8)}">
                       <tr>
                         <th cclass="smallTh" scope="row" th:text="${i+8}+':40 - '+${i+9}+':30'">08:40 - 09:30</th>
-                        <span  th:each="j: ${#numbers.sequence(0, 4)}" th:with="k = ${true}">
+                        <span  th:each="j: ${#numbers.sequence(0, 4)}" >
                             <span th:switch="${available[j*9+i]}">
                                 <span th:case="0">
                                     <td></td>
@@ -169,7 +169,7 @@
                                 <span th:case="1">
                                         <span th:each="course: ${course_schedules}" >
                                             <span  th:switch="${course.getTimeSlot()}">
-                                                <td th:case="${j*9+i}" th:with="k = ${false}" th:class="'set' + ' ' + 'set-' + ${j+1}">
+                                                <td th:case="${j*9+i}" th:class="'set' + ' ' + 'set-' + ${j+1}">
                                                     <span th:text="${course.getCourse_code()}+'-'+${course.getSection_number()}">
                                                     </span>
                                                     <br>
