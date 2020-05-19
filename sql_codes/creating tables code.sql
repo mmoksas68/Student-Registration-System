@@ -1,7 +1,7 @@
 create table User(
 user_id 	INT PRIMARY KEY AUTO_INCREMENT,
-firstname 	VARCHAR(16) NOT NULL,
-lastname 	VARCHAR(16) NOT NULL,
+firstname 	varchar(16) not null,
+lastname 	varchar(16) not null,
 mail		varchar(32) not null unique,
 password	varchar(64) not null,
 role		varchar(32) not null);
@@ -14,15 +14,15 @@ foreign key(phone_id) references User(user_id));
 
 create table Department(
 dept_code 	varchar(8) primary key,
-dept_name	varchar(32) not null unique,
-building	varchar(16));
+building	varchar(32),
+dept_name	varchar(64) not null unique);
 
 create table Student(
 student_id	INT primary key,
 address		VARCHAR(64) NOT NULL,
 gpa			numeric(3,2),
 cgpa		numeric(3,2),
-erasmus_application_point numeric(3,2),
+erasmus_application_point double,
 gender		enum('Male','Female') NOT NULL,
 date_of_birth DATE,
 age 		TINYINT,
@@ -54,7 +54,7 @@ task_type	varchar(32));
 create table Course(
 course_id		int primary key auto_increment,
 course_code 	varchar(16) not null unique,
-name 			varchar(32) not null unique,
+name 			varchar(64) not null unique,
 credits 		int not null,
 dept_code		varchar(8) not null,
 coordinator_id 	int not null,
@@ -64,12 +64,12 @@ foreign key (dept_code) references Department(dept_code));
 create table Section(
 course_id		int,
 section_id		int,
-class 			varchar(16) not null,
+classroom 			varchar(16) not null,
 section_number	tinyint	not null,
 semester		enum('fall','spring','summer') not null,
 year			numeric(4,0) not null,
-available_quata	tinyint not null,
-total_quata		tinyint not null,
+available_quota	tinyint,
+total_quota		tinyint not null,
 teacher_id 		int not null,
 primary key(course_id, section_id),
 foreign key (teacher_id) references Instructor(instructor_id),
@@ -86,7 +86,7 @@ reserved_time	VARCHAR(32));
 
 create table Assignment(
 assignment_id 	int primary key auto_increment,
-title			varchar(16) not null,
+title			varchar(64) not null,
 date			datetime,
 type			varchar(16) not null);
 
@@ -115,7 +115,6 @@ foreign key(task_id) references Task(task_id),
 foreign key(instructor_id) references Instructor(instructor_id),
 foreign key(ta_id) references TeachingAssistant(ta_id));
 
-drop table Takes;
 create table Takes(
 s_id 		int,
 course_id 		int,
@@ -167,7 +166,7 @@ foreign key (course_id, section_id) references Section(course_id, section_id));
 create table Result(
 student_id		int,
 assignment_id	int,
-grade			numeric(3,2),
+grade			double,
 primary key (student_id, assignment_id),
 foreign key (student_id) references Student(student_id),
 foreign key (assignment_id) references Assignment(assignment_id));
@@ -175,7 +174,7 @@ foreign key (assignment_id) references Assignment(assignment_id));
 create table Curriculum(
 dept_code		varchar(8),
 course_id		int,
-court_type		enum('must', 'elective', 'additional'),
+course_type		enum('must', 'elective', 'additional'),
 semester		enum('fall','spring','summer'),
 year			numeric(4,0),
 foreign key(dept_code) references Department(dept_code),
@@ -215,7 +214,8 @@ create table ExchangeSchool(
 school_id		int primary key,
 school_name		varchar(64),
 department		varchar(64),
-available_semester	enum('fall','spring','summer')
+available_semester	enum('fall','spring','summer'),
+school_country	varchar(32)
 );
 
 create table ExchangeApplication(

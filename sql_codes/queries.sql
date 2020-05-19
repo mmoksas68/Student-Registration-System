@@ -1,153 +1,249 @@
-## Student Info
-SELECT u.firstname, u.lastname, d.dept_name,s.student_id, s.cgpa, s.gpa, s.current_semester,p.phone_number, u.mail 
-FROM Student s 
-INNER JOIN student_system.User u on s.student_id=u.user_id 
-INNER JOIN D_Member m ON u.user_id=m.user_id 
-INNER JOIN Department d ON m.dept_code = d.dept_code
-INNER JOIN Phone p ON p.phone_id= u.user_id 
-WHERE s.student_id = 2375;
+create table User(
+user_id 	INT PRIMARY KEY AUTO_INCREMENT,
+firstname 	varchar(16) not null,
+lastname 	varchar(16) not null,
+mail		varchar(32) not null unique,
+password	varchar(64) not null,
+role		varchar(32) not null);
 
-# Instructor Given Courses
-# sec.class changed to sec.classroom, Instructor i changed to instructor k
-SELECT c.course_code, sec.section_number, c.name, sec.classroom
-FROM Instructor i
-INNER JOIN Section sec ON sec.teacher_id=i.instructor_id
-INNER JOIN Course c ON c.course_id = sec.course_id
-WHERE i.instructor_id= 4001 AND sec.semester= "spring" AND sec.year= "2020";
+create table Phone(
+phone_number varchar(32) NOT NULL,
+phone_id	 int NOT NULL,
+primary key(phone_number, phone_id),
+foreign key(phone_id) references User(user_id));
 
-## Instructor Info
-SELECT u.firstname, u.lastname, d.dept_name, i.instructor_id, i.office_no, p.phone_number, u.mail
-FROM Instructor i
-INNER JOIN User u ON i.instructor_id= u.user_id
-INNER JOIN D_Member m ON u.user_id = m.user_id
-INNER JOIN Department d ON m.dept_code = d.dept_code
-INNER JOIN Phone p ON p.phone_id= u.user_id
-WHERE i.instructor_id = 4000;
+create table Department(
+dept_code 	varchar(8) primary key,
+building	varchar(32),
+dept_name	varchar(64) not null unique);
 
-# Instuctor Weekly Scedule
-SELECT c.course_code, sec.section_number,
-sec.classroom, ts.start_day, ts.start_time, ts.end_time
-FROM Instructor i
-INNER JOIN Section sec ON sec.teacher_id=i.instructor_id
-INNER JOIN Course c ON c.course_id = sec.course_id 
-INNER JOIN Has h ON sec.section_id = h.section_id
-INNER JOIN TimeSlot ts ON ts.time_id = h.time_id
-WHERE i.instructor_id= 4001 AND sec.semester= 'spring'
-AND sec.year= 2020;
+create table Student(
+student_id	INT primary key,
+address		VARCHAR(64) NOT NULL,
+gpa			numeric(3,2),
+cgpa		numeric(3,2),
+erasmus_application_point double,
+gender		enum('Male','Female') NOT NULL,
+date_of_birth DATE,
+age 		TINYINT,
+current_semester	TINYINT,
+foreign key(student_id) references User(user_id),
+check (gender in ('Male','Female')));
 
-# Student weekly schedule
-SELECT c.course_code, sec.section_number, sec.classroom, ts.start_day, ts.start_time, ts.end_time
-FROM Student s
-INNER JOIN Takes t ON t.s_id=s.student_id
-INNER JOIN Section sec ON t.section_id=sec.section_id
-INNER JOIN Course c ON c.course_id = sec.course_id
-INNER JOIN Has h ON sec.section_id = h.section_id
-INNER JOIN TimeSlot ts ON ts.time_id = h.time_id
-WHERE s.student_id= 2375 AND
-t.semester= 'spring' AND t.year= '2020';
+create table Instructor(
+instructor_id	INT primary key,
+office_no		varchar(16),
+office_hours	varchar(32),
+foreign key (instructor_id) references User(user_id));
 
+create table TeachingAssistant(
+ta_id 	INT primary key,
+office_no	varchar(16),
+office_hours	varchar(32),
+Foreign key (ta_id) references User(user_id));
 
-# Get student taken courses
-SELECT c.course_code, sec.section_number, c.name,u.firstname, u.lastname,c.credits FROM Student s 
-INNER JOIN Takes t ON t.s_id=s.student_id
-INNER JOIN Section sec ON t.section_id=sec.section_id
-INNER JOIN Course c ON c.course_id = sec.course_id
-INNER JOIN Instructor i ON i.instructor_id= sec.teacher_id
-INNER JOIN User u ON i.instructor_id=u.user_id
-WHERE s.student_id= 2375 AND
-t.semester= 'spring' AND t.year= '2020';
+create table Administrative_Unit(
+admin_id		INT PRIMARY KEY auto_increment,
+office_no		varchar(8),
+foreign key (admin_id) references User(user_id));
 
-#given courses ta
-SELECT distinct c.course_code,  c.name
-FROM TeachingAssistant ta
-INNER JOIN Assists a ON a.ta_id = ta.ta_id
-INNER JOIN Course c ON c.course_id = a.course_id
-INNER JOIN Section sec ON c.course_id= sec.course_id
-WHERE ta.ta_id= 3000 AND
-sec.semester= 'spring' AND sec.year= '2020';
+create table Task(
+task_id		int primary key AUTO_INCREMENT,
+task_type	varchar(32));
 
-#Assistant info repository 
-SELECT u.firstname, u.lastname, d.dept_name, ta.ta_id, ta.office_no, p.phone_number, u.mail
-FROM TeachingAssistant ta
-INNER JOIN User u ON ta.ta_id=u.user_id
-INNER JOIN D_Member m ON u.user_id=m.user_id
-INNER JOIN Department d ON m.dept_code = d.dept_code
-INNER JOIN Phone p ON p.phone_id= u.user_id
-WHERE ta.ta_id = 3000;
+create table Course(
+course_id		int primary key auto_increment,
+course_code 	varchar(16) not null unique,
+name 			varchar(32) not null unique,
+credits 		int not null,
+dept_code		varchar(8) not null,
+coordinator_id 	int not null,
+foreign key (coordinator_id) references Instructor(instructor_id),
+foreign key (dept_code) references Department(dept_code));
 
-# ta weekly schedule
-
-SELECT c.course_code, sec.section_number, sec.classroom, ts.start_day, ts.start_time, ts.end_time
-FROM TeachingAssistant ta
-INNER JOIN Assists a ON a.ta_id = ta.ta_id
-INNER JOIN Course c ON c.course_id = a.course_id
-INNER JOIN Section sec ON c.course_id= sec.course_id
-INNER JOIN Has h on h.section_id = sec.section_id
-INNER JOIN TimeSlot ts ON ts.time_id = h.time_id 
-WHERE ta.ta_id= 3000 AND sec.semester= 'spring'
-AND sec.year= '2020';
-
-# get button names
-SELECT c.course_code, sec.section_number, c.name, sec.section_id
-FROM Instructor i
-INNER JOIN Section sec ON sec.teacher_id=i.instructor_id
-INNER JOIN Course c ON c.course_id = sec.course_id
-WHERE i.instructor_id= 4000 AND
-sec.semester= 'spring' AND sec.year= 2020;
-
-# get grades
-SELECT u.user_id, u.firstname, u.lastname, t.final_grade
-FROM Section sec
-INNER JOIN Takes t ON t.section_id = sec.section_id
-INNER JOIN Student s ON s.student_id = t.s_id
-INNER JOIN User u ON s.student_id = u.user_id 
-WHERE sec.section_id = 1 and t.semester = 'spring' and t.year = 2020; 
-
-# letter grade 
-UPDATE Takes t
-SET letter_grade = 'A+'
-WHERE t.section_id = 1 and t.semester = 'spring' and t.year = 2020 and t.s_id = 2375;
-
-## get assistants
-SELECT ta.ta_id, u.firstname, u.lastname
-FROM Instructor i
-INNER JOIN Authorizes a ON i.instructor_id = a.instructor_id
-INNER JOIN Task t ON t.task_id=a.task_id
-INNER JOIN TeachingAssistant ta ON ta.ta_id=a.ta_id
-INNER JOIN Section sec ON sec.teacher_id = i.instructor_id
-INNER JOIN User u ON u.user_id = ta.ta_id
-WHERE sec.course_id = ? AND i.instructor_id=?;
+create table Section(
+course_id		int,
+section_id		int,
+classroom 			varchar(16) not null,
+section_number	tinyint	not null,
+semester		enum('fall','spring','summer') not null,
+year			numeric(4,0) not null,
+available_quota	tinyint not null,
+total_quota		tinyint not null,
+teacher_id 		int not null,
+primary key(course_id, section_id),
+foreign key (teacher_id) references Instructor(instructor_id),
+foreign key (course_id) references Course(course_id),
+check(semester in ('fall','spring','summer')));
 
 
-# student get button names
-SELECT c.course_code, sec.section_number, c.name
-FROM Student s
-INNER JOIN Takes t ON t.s_id=s.student_id
-INNER JOIN Section sec ON t.section_id=sec.section_id
-INNER JOIN Course c ON c.course_id = sec.course_id
-WHERE s.student_id= 2375 AND
-t.semester= 'spring' AND t.year= 2020;
-
-SELECT * FROM Assigment;
-
-#get grades
-SELECT a.title, a.type, a.date, r.grade
-FROM Result r
-INNER JOIN Student s ON r.student_id = s.student_id
-INNER JOIN Assignment a ON a.assignment_id=r.assignment_id
-INNER JOIN Contains con ON con.assignment_id = a.assignment_id
-INNER JOIN Section sec ON con.section_id=sec.section_id
-INNER JOIN Course c ON c.course_id = sec.course_id
-WHERE c.course_id = 1 AND s.student_id= 2251 and sec.section_id = 1;
-
-# ta get students
-SELECT distinct u.user_id, u.firstname, u.lastname
-FROM Section sec
-INNER JOIN Contains con ON con.section_id = sec.section_id
-INNER JOIN Assignment a ON a.assignment_id = con.assignment_id
-INNER JOIN Result r ON r.assignment_id= a.assignment_id
-INNER JOIN Student s ON s.student_id = r.student_id
-INNER JOIN User u ON s.student_id = u.user_id
-WHERE sec.section_id = 1;
+CREATE TABLE ScheduledExam(
+exam_id			INT PRIMARY KEY AUTO_INCREMENT,
+e_date			DATETIME NOT NULL,
+title			VARCHAR(32),
+reserved_time	VARCHAR(32));
 
 
+create table Assignment(
+assignment_id 	int primary key auto_increment,
+title			varchar(16) not null,
+date			datetime,
+type			varchar(16) not null);
+
+## relations between tables
+
+create table D_Member(
+user_id 	int primary key,
+dept_code	varchar(8) not null,
+foreign key (user_id) references User(user_id),
+foreign key (dept_code) references Department(dept_code));
+
+## continue
+create table Assists(
+ta_id		int,
+course_id 	int,
+primary key (ta_id, course_id),
+foreign key (ta_id) references TeachingAssistant(ta_id),
+foreign key (course_id) references Course(course_id));
+
+create table Authorizes(
+task_id 	int,
+instructor_id int,
+ta_id		int,
+primary key (task_id, instructor_id, ta_id),
+foreign key(task_id) references Task(task_id),
+foreign key(instructor_id) references Instructor(instructor_id),
+foreign key(ta_id) references TeachingAssistant(ta_id));
+
+create table Takes(
+s_id 		int,
+course_id 		int,
+section_id		int,
+final_grade		double,
+letter_grade 	enum('A+','A','A-','B+','B','B-','C+','C','C-','D+','D','D-','F','FZ','W'),
+year			smallint,
+semester		enum('fall','spring','summer'),
+primary key (s_id, course_id, section_id),
+foreign key(s_id) references Student(student_id),
+foreign key(course_id, section_id) references Section(course_id, section_id)
+);
+
+
+create table TimeSlot(
+time_id 	int primary key auto_increment,
+start_time	TIME,
+end_time	TIME,
+start_day	ENUM('mon','tue','wed','thu','fri','sat','sun'));
+
+create table Has(
+time_id 	int,
+course_id	int,
+section_id	int,
+primary key (time_id, course_id, section_id),
+foreign key(time_id) references TimeSlot(time_id),
+foreign key(course_id, section_id) references Section(course_id, section_id));
+
+create table Contains(
+assignment_id	int,
+course_id		int,
+section_id		int,
+primary key (assignment_id, course_id, section_id),
+foreign key(assignment_id) references Assignment(assignment_id),
+foreign key (course_id, section_id) references Section(course_id, section_id));
+
+create table Attendance(
+s_id				int,
+course_id			int,
+section_id			int,
+att_date			date,
+title				varchar(16),
+attendance_count	tinyint,
+lecture_count		tinyint,
+primary key (s_id, course_id, section_id),
+foreign key (s_id) references Student(student_id),
+foreign key (course_id, section_id) references Section(course_id, section_id));
+
+create table Result(
+student_id		int,
+assignment_id	int,
+grade			double,
+primary key (student_id, assignment_id),
+foreign key (student_id) references Student(student_id),
+foreign key (assignment_id) references Assignment(assignment_id));
+
+create table Curriculum(
+dept_code		varchar(8),
+course_id		int,
+court_type		enum('must', 'elective', 'additional'),
+semester		enum('fall','spring','summer'),
+year			numeric(4,0),
+foreign key(dept_code) references Department(dept_code),
+foreign key(course_id) references Course(course_id));
+
+
+create table PreReq(
+course_id	int,
+req_id		int,
+primary key (course_id, req_id),
+foreign key(course_id) references Course(course_id),
+foreign key(req_id) references Course(course_id));
+    
+CREATE TABLE Includes(
+exam_id			INT,
+course_id		INT,
+section_id		INT,
+PRIMARY KEY (exam_id, course_id, section_id),
+FOREIGN KEY (exam_id) REFERENCES ScheduledExam(exam_id),
+FOREIGN KEY (course_id, section_id) REFERENCES Section(course_id, section_id));
+
+Create table Classrooms (
+exam_id	int,
+classroom varchar(32),
+primary key (exam_id, classroom),
+foreign key (exam_id) references ScheduledExam(exam_id));
+
+create table Document(
+document_id		int primary key auto_increment,
+student_id		int,
+type			varchar(16),
+payment_method	varchar(16),
+address			varchar(64),
+foreign key (student_id) references Student(student_id));
+
+create table ExchangeSchool(
+school_id		int primary key,
+school_name		varchar(64),
+department		varchar(64),
+available_semester	enum('fall','spring','summer')
+);
+
+create table ExchangeApplication(
+student_id			int,
+school_id			int,
+application_status	varchar(12),
+applied_semester	enum('fall', 'spring', 'summer'),
+application_point	double,
+year				smallint,
+primary key (student_id, school_id),
+foreign key (student_id) references Student(student_id),
+foreign key (school_id) references ExchangeSchool(school_id));
+
+create table ResponsibleFor(
+student_id 		int,
+school_id		int,
+admin_id		int,
+primary key(student_id, school_id),
+foreign key (student_id) references Student(student_id),
+foreign key (school_id) references ExchangeSchool(school_id),
+foreign key (admin_id) references Administrative_Unit(admin_id));
+
+create table Car_Sticker(
+sticker_id 	int primary key,
+plate_no	varchar(10) not null unique,
+start_date	Date not null,
+end_date	date not null,
+car_type	varchar(32) not null,
+driver_licence_no 	varchar(32) not null,
+penalty_point	int,
+owner_id 		int,
+foreign key (owner_id) references User(user_id));
