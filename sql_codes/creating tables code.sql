@@ -3,7 +3,8 @@ user_id 	INT PRIMARY KEY AUTO_INCREMENT,
 firstname 	VARCHAR(16) NOT NULL,
 lastname 	VARCHAR(16) NOT NULL,
 mail		varchar(32) not null unique,
-password	varchar(16) not null);
+password	varchar(64) not null,
+role		varchar(32) not null);
 
 create table Phone(
 phone_number varchar(32) NOT NULL,
@@ -20,7 +21,7 @@ create table Student(
 student_id	INT primary key,
 address		VARCHAR(64) NOT NULL,
 gpa			numeric(3,2),
-cpga		numeric(3,2),
+cgpa		numeric(3,2),
 erasmus_application_point numeric(3,2),
 gender		enum('Male','Female') NOT NULL,
 date_of_birth DATE,
@@ -40,6 +41,11 @@ ta_id 	INT primary key,
 office_no	varchar(16),
 office_hours	varchar(32),
 Foreign key (ta_id) references User(user_id));
+
+create table Administrative_Unit(
+admin_id		INT PRIMARY KEY auto_increment,
+office_no		varchar(8),
+foreign key (admin_id) references User(user_id));
 
 create table Task(
 task_id		int primary key AUTO_INCREMENT,
@@ -77,12 +83,12 @@ e_date			DATETIME NOT NULL,
 title			VARCHAR(32),
 reserved_time	VARCHAR(32));
 
+
 create table Assignment(
 assignment_id 	int primary key auto_increment,
 title			varchar(16) not null,
 date			datetime,
-type			varchar(16) not null,
-average			numeric(3,2));
+type			varchar(16) not null);
 
 ## relations between tables
 
@@ -191,10 +197,54 @@ PRIMARY KEY (exam_id, course_id, section_id),
 FOREIGN KEY (exam_id) REFERENCES ScheduledExam(exam_id),
 FOREIGN KEY (course_id, section_id) REFERENCES Section(course_id, section_id));
 
-
 Create table Classrooms (
-
 exam_id	int,
 classroom varchar(32),
 primary key (exam_id, classroom),
 foreign key (exam_id) references ScheduledExam(exam_id));
+
+create table Document(
+document_id		int primary key auto_increment,
+student_id		int,
+type			varchar(16),
+payment_method	varchar(16),
+address			varchar(64),
+foreign key (student_id) references Student(student_id));
+
+create table ExchangeSchool(
+school_id		int primary key,
+school_name		varchar(64),
+department		varchar(64),
+available_semester	enum('fall','spring','summer')
+);
+
+create table ExchangeApplication(
+student_id			int,
+school_id			int,
+application_status	varchar(12),
+applied_semester	enum('fall', 'spring', 'summer'),
+application_point	double,
+year				smallint,
+primary key (student_id, school_id),
+foreign key (student_id) references Student(student_id),
+foreign key (school_id) references ExchangeSchool(school_id));
+
+create table ResponsibleFor(
+student_id 		int,
+school_id		int,
+admin_id		int,
+primary key(student_id, school_id),
+foreign key (student_id) references Student(student_id),
+foreign key (school_id) references ExchangeSchool(school_id),
+foreign key (admin_id) references Administrative_Unit(admin_id));
+
+create table Car_Sticker(
+sticker_id 	int primary key,
+plate_no	varchar(10) not null unique,
+start_date	Date not null,
+end_date	date not null,
+car_type	varchar(32) not null,
+driver_licence_no 	varchar(32) not null,
+penalty_point	int,
+owner_id 		int,
+foreign key (owner_id) references User(user_id));
