@@ -5,7 +5,7 @@
   padding: 0;
   color: white !important;
 }
-html, body, {
+html, body {
     position:fixed;
     top:0;
     bottom:0;
@@ -67,7 +67,7 @@ th{
   vertical-align: middle !important;
 }
 
-.set-1, .set-2, .set-3, .set-4, .set-5, .set-6{
+.set{
     background: #3385ff;
     border-radius: 25px;
 }

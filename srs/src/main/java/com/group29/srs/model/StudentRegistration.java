@@ -47,4 +47,14 @@ public class StudentRegistration {
         this.name = name;
         this.course_type = course_type;
     }
+
+    @Override
+    public String toString() {
+        return "StudentRegistration{" +
+                "course_id=" + course_id +
+                ", course_code='" + course_code + '\'' +
+                ", name='" + name + '\'' +
+                ", course_type='" + course_type + '\'' +
+                '}';
+    }
 }

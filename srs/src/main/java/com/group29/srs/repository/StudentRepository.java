@@ -54,6 +54,7 @@ public class StudentRepository {
 
     }
 
+
     public List<WeeklySchedule> getStudentWeeklySchedule(long id, String semester, int year){
         return  jdbcTemplate.query("SELECT c.course_code, sec.section_number," +
                 "sec.classroom, ts.start_day, ts.start_time, ts.end_time " +

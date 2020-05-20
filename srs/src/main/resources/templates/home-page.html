@@ -159,8 +159,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <option th:each="i: ${#numbers.sequence(0,8)}">
-                      <tr>
+                      <tr th:each="i: ${#numbers.sequence(0,8)}">
                         <th cclass="smallTh" scope="row" th:text="${i+8}+':40 - '+${i+9}+':30'">08:40 - 09:30</th>
                         <span  th:each="j: ${#numbers.sequence(0, 4)}" >
                             <span th:switch="${available[j*9+i]}">
@@ -183,7 +182,6 @@
                             </span>
                         </span >
                       </tr>
-                    </option>
                   </tbody>
                 </table>
             </div>       
@@ -191,7 +189,7 @@
 
 
     </div>
-    <script th:src="@{/js/homePage.js}"></script>
+    <script th:src="@{/js/register.js}"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
