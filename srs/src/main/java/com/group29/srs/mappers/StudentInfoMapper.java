@@ -19,6 +19,7 @@ public class StudentInfoMapper implements RowMapper<StudentInfo> {
         stinfo.setGpa(resultSet.getDouble("gpa"));
         stinfo.setCgpa(resultSet.getDouble("cgpa"));
         stinfo.setCurrent_semester(resultSet.getString("current_semester"));
+        stinfo.setIsAppliedErasmus(resultSet.getBoolean("is_Applied_Erasmus"));
         return stinfo;
     }
 }

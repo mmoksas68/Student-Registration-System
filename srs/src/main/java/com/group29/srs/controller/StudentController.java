@@ -60,6 +60,7 @@ public class StudentController {
                                 Model model){
         System.out.println("post achieved");
         System.out.println(exchangeApplication);
+        studentServices.applyExchange(ID, exchangeApplication);
         return "redirect:/student/"+ID;
     }
 

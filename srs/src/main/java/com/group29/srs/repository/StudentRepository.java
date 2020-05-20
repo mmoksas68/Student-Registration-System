@@ -19,7 +19,7 @@ public class StudentRepository {
     public List<StudentInfo> getStudentInfoById(long id){
         return  jdbcTemplate.query("SELECT u.firstname, u.lastname, d.dept_name," +
                 "s.student_id, s.cgpa, s.gpa, s.current_semester," +
-                "p.phone_number, u.mail " +
+                "p.phone_number, u.mail, s.is_Applied_Erasmus " +
                 "FROM Student s " +
                 "INNER JOIN User u ON s.student_id=u.user_id " +
                 "INNER JOIN D_Member m ON u.user_id=m.user_id " +
@@ -126,14 +126,14 @@ public class StudentRepository {
     }
 
     public List<Exchange_School> getExchangeInfoById(Long id) {
-        return jdbcTemplate.query("SELECT es.school_name,es.school_country,es.department, es.available_semester, s.erasmus_application_point " +
+        return jdbcTemplate.query("SELECT es.school_id, es.school_name,es.school_country,es.department, es.available_semester, s.erasmus_application_point " +
                 "FROM Student s,ExchangeSchool es " +
                 "WHERE s.student_id = ?;", new Object[]{id}, new ExchangeSchoolMapper());
     }
 
 
     public List<AvailableCourse> getAvailableCourses(long course_id){
-        return  jdbcTemplate.query("Select c.course_code, s.section_id, c.name," +
+        return  jdbcTemplate.query("Select c.course_id, c.course_code, s.section_id, c.name," +
                 " u.firstname, u.lastname, s.available_quota, s.total_quota " +
                 "from Course c " +
                 "Inner Join Section s on c.course_id = s.course_id " +
@@ -181,4 +181,22 @@ public class StudentRepository {
                 " where s.student_id = ? and t.letter_grade is not null and " +
                 "t.letter_grade NOT LIKE 'F%'); ",new Object[] {student_id,student_id,student_id,student_id,student_id}, new StudentRegistrationMapper());
     }
+
+    public List<Exchange_School> getAppliedSchoolID(Long student_id, String school_name, String available_semester){
+        return jdbcTemplate.query("SELECT  es.school_id, es.school_name, es.school_country,es.department, es.available_semester, s.erasmus_application_point " +
+                "FROM Student s,ExchangeSchool es " +
+                "WHERE s.student_id = ? and es.school_name = ? and es.available_semester=?;", new Object[]{student_id, school_name, available_semester}, new ExchangeSchoolMapper());
+    }
+
+    public void insertAppliedSchool(long student_id, long school_id, String applied_semester){
+        jdbcTemplate.update(
+                "INSERT INTO ExchangeApplication(student_id, school_id, applied_semester) VALUES (?, ?, ?)",
+                new Object[]{student_id,school_id, applied_semester});
+
+        jdbcTemplate.update(
+                "UPDATE Student s SET s.is_applied_erasmus = True where s.student_id = ? ",
+                new Object[]{student_id});
+    }
+
+
 }

@@ -1,13 +1,15 @@
 package com.group29.srs.model;
 
 public class Exchange_School {
+    Long school_id;
     String school_name;
     String department;
     String available_semester;
     String school_country;
     Double erasmus_application_point;
 
-    public Exchange_School(String school_name, String department, String available_semester, String school_country, Double erasmus_application_point) {
+    public Exchange_School(Long school_id, String school_name, String department, String available_semester, String school_country, Double erasmus_application_point) {
+        this.school_id = school_id;
         this.school_name = school_name;
         this.department = department;
         this.available_semester = available_semester;
@@ -16,6 +18,14 @@ public class Exchange_School {
     }
 
     public Exchange_School() {
+    }
+
+    public Long getSchool_id() {
+        return school_id;
+    }
+
+    public void setSchool_id(Long school_id) {
+        this.school_id = school_id;
     }
 
     public String getSchool_country() {

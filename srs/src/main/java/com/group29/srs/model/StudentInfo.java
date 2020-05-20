@@ -10,11 +10,12 @@ public class StudentInfo {
     Double gpa;
     Double cgpa;
     String current_semester;
+    boolean isAppliedErasmus;
 
     public StudentInfo() {
     }
 
-    public StudentInfo(String firstname, String lastname, String mail, String dept_name, String phone_number, Long student_id, Double gpa, Double cgpa, String current_semester) {
+    public StudentInfo(String firstname, String lastname, String mail, String dept_name, String phone_number, Long student_id, Double gpa, Double cgpa, String current_semester, boolean isAppliedErasmus) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.mail = mail;
@@ -24,7 +25,17 @@ public class StudentInfo {
         this.gpa = gpa;
         this.cgpa = cgpa;
         this.current_semester = current_semester;
+        this.isAppliedErasmus = isAppliedErasmus;
     }
+
+    public boolean getIsAppliedErasmus() {
+        return isAppliedErasmus;
+    }
+
+    public void setIsAppliedErasmus(boolean isAppliedErasmus) {
+        this.isAppliedErasmus = isAppliedErasmus;
+    }
+
 
     public String getFirstname() {
         return firstname;

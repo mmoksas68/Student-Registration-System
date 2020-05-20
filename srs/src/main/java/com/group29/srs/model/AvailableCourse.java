@@ -1,6 +1,7 @@
 package com.group29.srs.model;
 
 public class AvailableCourse {
+    Long course_id;
     String course_code;
     long section_id;
     String name;
@@ -12,7 +13,8 @@ public class AvailableCourse {
     public AvailableCourse() {
     }
 
-    public AvailableCourse(String course_code, long section_id, String name, String firstname, String lastname, int available_quota, int total_quota) {
+    public AvailableCourse(long course_id, String course_code, long section_id, String name, String firstname, String lastname, int available_quota, int total_quota) {
+        this.course_id = course_id;
         this.course_code = course_code;
         this.section_id = section_id;
         this.name = name;
@@ -21,6 +23,14 @@ public class AvailableCourse {
         this.available_quota = available_quota;
         this.total_quota = total_quota;
     }
+    public Long getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(Long course_id) {
+        this.course_id = course_id;
+    }
+
 
     public String getCourse_code() {
         return course_code;
