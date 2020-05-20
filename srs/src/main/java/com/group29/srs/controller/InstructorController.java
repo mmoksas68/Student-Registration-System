@@ -46,7 +46,9 @@ public class InstructorController {
 
     @GetMapping("/{instructorID}/submit-course-grades")
     public String getSubmitGrades(@PathVariable(value = "instructorID") Long ID, Model model){
+        ArrayList<ArrayList<LetterGrades>> course_grades = instructorServices.getGrades(ID, "spring", 2020);
         model.addAttribute("instructor", instructorServices.getInstructorInfoById(ID).get(0) );
+        model.addAttribute("course_grades", course_grades);
         return "assign-letter-grades";
     }
 }

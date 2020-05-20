@@ -1,15 +1,11 @@
 package com.group29.srs.controller;
 
-import com.group29.srs.model.Grades;
-import com.group29.srs.model.TakenCourses;
-import com.group29.srs.model.WeeklySchedule;
+import com.group29.srs.model.*;
 import com.group29.srs.services.StudentServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +41,24 @@ public class StudentController {
         model.addAttribute("grades", stgrade);
 
         return "grades";
+    }
+
+    @GetMapping("/{studentID}/exchange")
+    public String getExchange(@PathVariable(value = "studentID") Long ID,
+                              @ModelAttribute("application") ExchangeApplication exchangeApplication,
+                              Model model){
+        List<Exchange_School> exchange_schools = studentServices.getExchangeInfoById(ID);
+        model.addAttribute("exchange_schools", exchange_schools);
+        model.addAttribute("student", studentServices.getStudentInfoById(ID).get(0) );
+        return "exchange";
+    }
+
+    @PostMapping("/{studentID}/exchange")
+    public String postExchange(@PathVariable(value = "studentID") Long ID,
+                               @ModelAttribute("application") ExchangeApplication exchangeApplication,
+                                Model model){
+        System.out.println("post achieved");
+        System.out.println(exchangeApplication);
+        return "redirect:/student/"+ID;
     }
 }

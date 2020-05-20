@@ -29,9 +29,21 @@ public class InstructorServices {
         return instructorRepository.getInstructorWeeklySchedule(id, semester , year);
     }
 
-    //section_id girmen gerek ona dikkat et.Birde bu section_id yi buttona tıkladıktan sonra elde edersin.Onu da mapliyom
-    public List<LetterGrades> getGrades(long instructor_id, String semester, int year){
-        return instructorRepository.getGrades(instructor_id, semester, year);
+    public  ArrayList<ArrayList<LetterGrades>> getGrades(long instructor_id, String semester, int year){
+        List<LetterGrades> grades = instructorRepository.getGrades(instructor_id, semester, year);
+        ArrayList<ArrayList<LetterGrades>> course_grades =  new ArrayList<ArrayList<LetterGrades>>();
+        String current_course = "";
+        int current_counter = -1;
+        for (int i=0; i<grades.size(); i++){
+            if (!current_course.equals(grades.get(i).getCourse_code()+"-"+grades.get(i).getSection_id())){
+                course_grades.add(new ArrayList<>());
+                current_counter++;
+                current_course = grades.get(i).getCourse_code()+"-"+grades.get(i).getSection_id();
+            }
+            course_grades.get(current_counter).add(grades.get(i));
+        }
+
+        return course_grades;
     }
 
     public List<ButtonName> getButtonNames(long id, String semester, int year){

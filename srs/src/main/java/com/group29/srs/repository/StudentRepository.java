@@ -13,6 +13,9 @@ public class StudentRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    UserRepository userRepository;
+
     public List<StudentInfo> getStudentInfoById(long id){
         return  jdbcTemplate.query("SELECT u.firstname, u.lastname, d.dept_name," +
                 "s.student_id, s.cgpa, s.gpa, s.current_semester," +
@@ -25,22 +28,30 @@ public class StudentRepository {
                 "WHERE s.student_id = ?;",new Object[] {id}, new StudentInfoMapper());
     }
 
-    public void insertStudent(long id, String firstname, String lastname, String mail, String password,
-                              String address, String gender, String birthday, String phone_number, String dept_code){
-        jdbcTemplate.update(
-                "INSERT INTO User (user_id, firstname, lastname, mail, password) VALUES (?, ?, ?, ?, ?)",
-                new Object[]{id, firstname, lastname, mail, password});
-        jdbcTemplate.update(
-                "INSERT INTO Student (student_id, address, gpa, cgpa, erasmus_application_point, gender, date_of_birth, age, current_semester) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                new Object[]{id, address, null , null, null, gender, birthday, null, null});
-        jdbcTemplate.update(
-                "INSERT INTO Phone (phone_number, phone_id) VALUES( ?, ?)",
-                new Object[]{phone_number, id});
-        jdbcTemplate.update(
-                "INSERT INTO D_Member (dept_code, user_id) VALUES( ?, ?)",
-                new Object[]{dept_code, id}
-        );
+    public int insertStudent(String firstname, String lastname, String mail, String password,
+                              String address, String gender, String birthday, String phone_number, String dept_code, String role){
+        try{
+            jdbcTemplate.update(
+                    "INSERT INTO User (firstname, lastname, mail, password, role) VALUES (?, ?, ?, ?, ?)",
+                    new Object[]{firstname, lastname, mail, password, role});
+            MyUser user = userRepository.getUserByMail(mail);
+            jdbcTemplate.update(
+                    "INSERT INTO Student (student_id, address, gpa, cgpa, erasmus_application_point, gender, date_of_birth, age, current_semester) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    new Object[]{user.getUser_id(), address, null , null, null, gender, null, null, 1});
+            jdbcTemplate.update(
+                    "INSERT INTO Phone (phone_number, phone_id) VALUES( ?, ?)",
+                    new Object[]{phone_number, user.getUser_id()});
+            jdbcTemplate.update(
+                    "INSERT INTO D_Member (dept_code, user_id) VALUES( ?, ?)",
+                    new Object[]{dept_code, user.getUser_id()}
+            );
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+
     }
 
     public List<WeeklySchedule> getStudentWeeklySchedule(long id, String semester, int year){
@@ -111,6 +122,12 @@ public class StudentRepository {
                         "WHERE phone_id = ?;",
                 new Object[]{phone_number, user_id}
         );
+    }
+
+    public List<Exchange_School> getExchangeInfoById(Long id) {
+        return jdbcTemplate.query("SELECT es.school_name,es.school_country,es.department, es.available_semester, s.erasmus_application_point " +
+                "FROM Student s,ExchangeSchool es " +
+                "WHERE s.student_id = ?;", new Object[]{id}, new ExchangeSchoolMapper());
     }
 
 }

@@ -33,10 +33,10 @@
                     <a class="nav-link" th:href="'/instructor/' + ${instructor.getId()} + '/submit-grades'">Submit Grades <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="'/instructor/' + ${instructor.getId()} + '/submit-course-grades'">Submit Course Grades <span class="sr-only">(current)</span></a>
+                    <a class="nav-link current" th:href="'/instructor/' + ${instructor.getId()} + '/submit-course-grades'">Submit Course Grades <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link current" th:href="'/instructor/' + ${instructor.getId()} + '/list-tas'">Teaching Assistants<span class="sr-only">(current)</span></a>
+                    <a class="nav-link " th:href="'/instructor/' + ${instructor.getId()} + '/list-tas'">Teaching Assistants<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Schedule Assessment <span class="sr-only">(current)</span></a>
@@ -104,13 +104,16 @@
         <button type="button" class="btn"  id="hideButton"><i class="fas fa-angle-double-left"></i></button>
         <button type="button" class="btn d-none ml-3"  id="showButton"><i class="fas fa-angle-double-right"></i></button>
         <div class="col-6" style="margin-left: 15%;">
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square d-none" id="show-icon-1"></i> 
-                    Assign Letter Grades for CS 315-1 Programming Languages 
-                </h4>
-                <table class="table table-striped table-sm" id="grade-table-1">
+            <div class="row" th:each=" i: ${#numbers.sequence(0,course_grades.size()-1)}">
+                <span >
+                    <h4 class="table-header pl-1 pb-1 pr-1">
+                        <i class="fas fa-minus-square" th:id="'hide-icon-'+${i+1}"></i>
+                        <i class="fas fa-plus-square d-none" th:id="'show-icon-'+${i+1}"></i>
+                        <span th:text="'Assign Letter Grades for ' + ${course_grades.get(i).get(0).getCourse_code()} + '-' +
+                                                       ${course_grades.get(i).get(0).getSection_id()}"></span>
+                    </h4>
+                </span>
+                <table class="table table-striped table-sm" th:id="'grade-table-'+${i+1}">
                   <thead>
                     <tr>
                       <th scope="col">Student ID</th>
@@ -121,233 +124,27 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">21602984</th>
-                      <td>Muhammed Musab</td>
-                      <td>Okşaş</td>
-                      <td>96.47</td>
+                    <tr th:each="grade:${course_grades.get(i)}">
+                      <th scope="row" th:text="${grade.getUser_id()}" >21602984</th>
+                      <td th:text="${grade.getFirstname()}">Muhammed Musab</td>
+                      <td th:text="${grade.getLastname()}">Okşaş</td>
+                      <td th:text="${grade.getFinal_grade()}">96.47</td>
                       <td>
                         <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
                           <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                        </select> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">21602985</th>
-                      <td>Jane1</td>
-                      <td>Doe</td>
-                      <td>88.47</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
-                        </select> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">21602986</th>
-                      <td>Jane2</td>
-                      <td>Doe2</td>
-                      <td>85.47</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
-                        </select> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">21602987</th>
-                      <td>Jane3</td>
-                      <td>Doe</td>
-                      <td>83.17</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
-                        </select> 
-                      </td>
-                    </tr>
-                                       <tr>
-                      <th scope="row">21602985</th>
-                      <td>Jane1</td>
-                      <td>Doe</td>
-                      <td>78.65</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
-                        </select> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">21602986</th>
-                      <td>Jane2</td>
-                      <td>Doe2</td>
-                      <td>72.38</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
-                        </select> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">21602987</th>
-                      <td>Jane3</td>
-                      <td>Doe</td>
-                      <td>69.57</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
-                        </select> 
-                      </td>
-                    </tr>
-                                       <tr>
-                      <th scope="row">21602985</th>
-                      <td>Jane1</td>
-                      <td>Doe</td>
-                      <td>63.9</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
-                        </select> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">21602986</th>
-                      <td>Jane2</td>
-                      <td>Doe2</td>
-                      <td>59.1</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
-                        </select> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">21602987</th>
-                      <td>Jane3</td>
-                      <td>Doe</td>
-                      <td>18.78</td>
-                      <td>
-                        <select class="custom-select w-75" id="inputGroupSelect03" aria-label="Example select with button addon" style="color: black!important;">
-                          <option selected>Choose...</option>
-                          <option value="1">A+</option>
-                          <option value="2">A</option>
-                          <option value="3">A-</option>
-                          <option value="3">B+</option>
-                          <option value="3">B</option>
-                          <option value="3">B-</option>
-                          <option value="3">C+</option>
-                          <option value="3">C</option>
-                          <option value="3">C-</option>
-                          <option value="3">D+</option>
-                          <option value="3">D</option>
-                          <option value="3">F</option>
-                          <option value="3">FZ</option>
+                            <option value="1">A+</option>
+                            <option value="2">A</option>
+                            <option value="3">A-</option>
+                            <option value="3">B+</option>
+                            <option value="3">B</option>
+                            <option value="3">B-</option>
+                            <option value="3">C+</option>
+                            <option value="3">C</option>
+                            <option value="3">C-</option>
+                            <option value="3">D+</option>
+                            <option value="3">D</option>
+                            <option value="3">F</option>
+                            <option value="3">FZ</option>
                         </select> 
                       </td>
                     </tr>
@@ -357,48 +154,7 @@
                   </tbody>
                 </table>    
             </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Assign Letter Grades for CS 315-2 Programming Languages 
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Assign Letter Grades for CS 421-1 Computer Networks 
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Assign Letter Grades for CS 353-3 Database Systems 
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Assign Letter Grades for CS 464-4 Introduction to Machine Learning 
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Assign Letter Grades for CS 484-1 Image Analysis
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Assign Letter Grades for CS 342-1 Operating Systems  
-                </h4>
-            </div>
+
         </div>
      </div>
 

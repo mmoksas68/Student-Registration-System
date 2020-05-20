@@ -32,7 +32,7 @@
                 <a class="nav-link current" th:href="'/student/'+${student.getStudent_id()}+'/grades'">Grades <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Attendaces <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#">Attendances <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">Scheduled Assessments <span class="sr-only">(current)</span></a>
@@ -44,10 +44,10 @@
                 <a class="nav-link" href="#">Curriculum <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Course Registeration<span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="'/student/'+${student.getStudent_id()}+'/course-registration'">Course Registeration<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Exchange<span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="'/student/'+${student.getStudent_id()}+'/exchange'">Exchange<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">Car Stickers<span class="sr-only">(current)</span></a>
@@ -105,7 +105,7 @@
                 <li class="list-group-item" style="font-size: 75%;" th:text="${student.getMail()}"></li>
             </ul>
             <div class="card-body">
-                <a href="#" class="card-link">Update Information <i class="fas fa-myUser-edit"></i></a>
+                <a href="#" class="card-link">Update Information <i class="fas fa-user-edit"></i></a>
             </div>
         </div>
     </div>
