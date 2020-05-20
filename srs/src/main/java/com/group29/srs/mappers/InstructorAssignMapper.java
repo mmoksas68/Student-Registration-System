@@ -15,6 +15,7 @@ public class InstructorAssignMapper implements RowMapper<TeachingAssistantList> 
         ta.setTa_id(resultSet.getLong("ta_id"));
         ta.setCourse_code(resultSet.getString("course_code"));
         ta.setSection_number(resultSet.getInt("section_number"));
+        ta.setTask_type(resultSet.getString("task_type"));
         return ta;
     }
 }

@@ -39,4 +39,13 @@ public class StudentServices {
                               String address, String date_of_birth, String phone_number){
         studentRepository.updateStudent(user_id, password, mail, firstname, lastname, address, date_of_birth, phone_number);
     }
+
+    public List<AvailableCourse> getAvailableCourses(long course_id){
+        return studentRepository.getAvailableCourses(course_id);
+    }
+
+    public List<StudentRegistration> getRegistrableCourses(long student_id){
+        return studentRepository.getRegistrableCourses(student_id);
+    }
+
 }
