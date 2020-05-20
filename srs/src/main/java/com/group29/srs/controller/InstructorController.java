@@ -1,8 +1,6 @@
 package com.group29.srs.controller;
 
-import com.group29.srs.model.InstructorGivenCourses;
-import com.group29.srs.model.TakenCourses;
-import com.group29.srs.model.WeeklySchedule;
+import com.group29.srs.model.*;
 import com.group29.srs.services.InstructorServices;
 import com.group29.srs.services.StudentServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,7 @@ public class InstructorController {
 
     @GetMapping("/{instructorID}")
     public String getStudentMainPage(@PathVariable(value = "instructorID") Long ID, Model model){
-         ArrayList<InstructorGivenCourses> courses = (ArrayList< InstructorGivenCourses>) instructorServices.getTakenCourses(ID, "spring", 2020);
+        ArrayList<InstructorGivenCourses> courses = (ArrayList< InstructorGivenCourses>) instructorServices.getTakenCourses(ID, "spring", 2020);
         model.addAttribute("courses_given", courses);
         int[] availableCourses = new int[45];
         List<WeeklySchedule> scheduleCourses = instructorServices.getInstructorWeeklySchedule(ID, "spring", 2020  );
@@ -32,10 +30,23 @@ public class InstructorController {
 
         for (int i=0; i<scheduleCourses.size(); i++){
             availableCourses[scheduleCourses.get(i).getTimeSlot()] = 1;
-            System.out.println(scheduleCourses.get(i));
         }
         model.addAttribute("available", availableCourses);
         model.addAttribute("instructor", instructorServices.getInstructorInfoById(ID).get(0) );
         return "home-page-inst";
+    }
+
+    @GetMapping("/{instructorID}/list-tas")
+    public String getTAList(@PathVariable(value = "instructorID") Long ID, Model model){
+        ArrayList<ArrayList<TeachingAssistantList>> tas = instructorServices.getTeachingAssistants(ID,"spring",2020 );
+        model.addAttribute("instructor", instructorServices.getInstructorInfoById(ID).get(0) );
+        model.addAttribute("ta_list", tas);
+        return "list-tas";
+    }
+
+    @GetMapping("/{instructorID}/submit-course-grades")
+    public String getSubmitGrades(@PathVariable(value = "instructorID") Long ID, Model model){
+        model.addAttribute("instructor", instructorServices.getInstructorInfoById(ID).get(0) );
+        return "assign-letter-grades";
     }
 }

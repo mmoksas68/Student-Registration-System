@@ -55,7 +55,7 @@ public class InstructorRepository {
                 "FROM Instructor i " +
                 "INNER JOIN Section sec ON sec.teacher_id=i.instructor_id " +
                 "INNER JOIN Course c ON c.course_id = sec.course_id " +
-                "INNER JOIN Has h ON sec.section_id = h.section_id AND sec.course_id= h.course_id" +
+                "INNER JOIN Has h ON sec.section_id = h.section_id AND sec.course_id= h.course_id " +
                 "INNER JOIN TimeSlot ts ON ts.time_id = h.time_id " +
                 "WHERE i.instructor_id= ? AND sec.semester= ? " +
                 "AND sec.year= ?;",new Object[] {id, semester, year}, new WeeklyScheduleMapper());
@@ -94,7 +94,7 @@ public class InstructorRepository {
                 "INNER JOIN Authorizes a ON i.instructor_id = a.instructor_id " +
                 "INNER JOIN Task t ON t.task_id=a.task_id " +
                 "INNER JOIN TeachingAssistant ta ON ta.ta_id=a.ta_id " +
-                "INNER JOIN Assist asi ON asi.ta_id=ta.ta_id " +
+                "INNER JOIN Assists asi ON asi.ta_id=ta.ta_id " +
                 "INNER JOIN Course c ON c.course_id=asi.course_id " +
                 "INNER JOIN Section sec ON sec.teacher_id = i.instructor_id " +
                 "INNER JOIN User u ON u.user_id = ta.ta_id " +

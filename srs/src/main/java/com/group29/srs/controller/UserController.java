@@ -50,7 +50,6 @@ public class UserController {
     public String getLogin(@ModelAttribute(value = "user") MyUser myUser, BindingResult errors, Model model)
     {
         String userID = securityService.findLoggedInUsername();
-        System.out.println(userID);
         if (userID != null){
             MyUser user = userServices.getUserByID(Long.valueOf(userID));
             if (user.getRole().getRole().equals("student"))

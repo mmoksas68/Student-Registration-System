@@ -28,14 +28,14 @@
               <li class="nav-item active">
                 <a class="nav-link current" th:href="'/instructor/' + ${instructor.getId()}">Home <span class="sr-only">(current)</span></a>
               </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="'/instructor/' + ${instructor.getId()} + '/submit-grades'">Submit Grades <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="'/instructor/' + ${instructor.getId()} + '/submit-course-grades'">Submit Course Grades <span class="sr-only">(current)</span></a>
+                </li>
               <li class="nav-item active">
-                <a class="nav-link" th:href="'/instructor/' + ${instructor.getId()} + '/submit_grades'">Submit Grades <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" th:href="'/instructor/' + ${instructor.getId()} + '/submit_course_grades'">Submit Course Grades <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Teaching Assistants<span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="'/instructor/' + ${instructor.getId()} + '/list-tas'">Teaching Assistants<span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="#">Schedule Assessment <span class="sr-only">(current)</span></a>
