@@ -6,16 +6,26 @@ public class TeachingAssistantList {
     String lastname;
     String course_code;
     int section_number;
+    String task_type;
 
-    public TeachingAssistantList(Long ta_id, String firstname, String lastname, String course_code, int section_number) {
+    public TeachingAssistantList(Long ta_id, String firstname, String lastname, String course_code, int section_number, String task_type) {
         this.ta_id = ta_id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.course_code = course_code;
         this.section_number = section_number;
+        this.task_type = task_type;
     }
 
     public TeachingAssistantList() {
+    }
+
+    public String getTask_type() {
+        return task_type;
+    }
+
+    public void setTask_type(String task_type) {
+        this.task_type = task_type;
     }
 
     public int getSection_number() {

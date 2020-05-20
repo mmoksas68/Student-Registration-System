@@ -89,7 +89,7 @@ public class InstructorRepository {
     }
 
     public List<TeachingAssistantList> getTeachingAssistants(long instructor_id, String semester, int year){
-        return  jdbcTemplate.query("SELECT ta.ta_id, u.firstname, u.lastname, c.course_code, sec.section_id " +
+        return  jdbcTemplate.query("SELECT ta.ta_id, u.firstname, u.lastname, c.course_code, sec.section_id, t.task_type " +
                 "FROM Instructor i " +
                 "INNER JOIN Authorizes a ON i.instructor_id = a.instructor_id " +
                 "INNER JOIN Task t ON t.task_id=a.task_id " +
