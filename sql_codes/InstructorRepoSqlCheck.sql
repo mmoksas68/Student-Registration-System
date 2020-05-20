@@ -53,7 +53,7 @@ WHERE t.section_id = ? AND t.s_id = ?  AND t.semester = ?  AND t.year = ?;
 
 
 #get tas  ## DÜZELTİLECEK Assist --> Assists ve "and c.course_id = sec.course_id" for Inner join Section
-SELECT ta.ta_id, u.firstname, u.lastname, c.course_code, sec.section_id
+SELECT ta.ta_id, u.firstname, u.lastname, c.course_code, sec.section_id, t.task_type
 FROM Instructor i
 INNER JOIN Authorizes a ON i.instructor_id = a.instructor_id
 INNER JOIN Task t ON t.task_id=a.task_id
@@ -62,8 +62,8 @@ INNER JOIN Assists asi ON asi.ta_id=ta.ta_id
 INNER JOIN Course c ON c.course_id=asi.course_id
 INNER JOIN Section sec ON sec.teacher_id = i.instructor_id and c.course_id = sec.course_id
 INNER JOIN User u ON u.user_id = ta.ta_id
-WHERE i.instructor_id = 9101 AND sec.semester= 'spring' AND sec.year= 2020;
+WHERE i.instructor_id = 9100 AND sec.semester= 'spring' AND sec.year= 2020;
 
-# assign task
+# assign task task_id
 INSERT INTO Task (task_id, task_type) VALUES( ?, ?);
 INSERT INTO Authorizes (task_id, instructor_id, ta_id ) VALUES( ?, ?, ?);
