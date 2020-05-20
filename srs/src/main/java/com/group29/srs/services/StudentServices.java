@@ -67,12 +67,12 @@ public class StudentServices {
         return studentRepository.getExchangeInfoById(id);
     }
 
-    public List<AvailableCourse> getAvailableCourses(long course_id){
-        return studentRepository.getAvailableCourses(course_id);
+    public List<UnAvailableCourse> getUnAvailableCourses(long course_id){
+        return studentRepository.getUnAvailableCourses(course_id);
     }
 
-    public List<StudentRegistration> getRegistrableCourses(long student_id){
-        return studentRepository.getRegistrableCourses(student_id);
+    public List<StudentRegistration> getAvailableCourses(long student_id){
+        return studentRepository.getAvailableCourses(student_id);
     }
 
 }

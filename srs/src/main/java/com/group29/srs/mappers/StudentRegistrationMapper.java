@@ -14,6 +14,11 @@ public class StudentRegistrationMapper implements RowMapper<StudentRegistration>
         sr.setCourse_type(resultSet.getString("course_type"));
         sr.setCourse_id(resultSet.getLong("course_id"));
         sr.setName(resultSet.getString("name"));
+        sr.setFirstname(resultSet.getString("firstname"));
+        sr.setLastname(resultSet.getString("lastname"));
+        sr.setAvailable_quota(resultSet.getInt("available_quota"));
+        sr.setTotal_quota(resultSet.getInt("total_quota"));
+        sr.setSection_id(resultSet.getInt("section_id"));
         return sr;
     }
 }
