@@ -29,7 +29,6 @@ public class UserRepository {
         List<MyUser> myUsers = jdbcTemplate.query("SELECT u.user_id, u.firstname, u.lastname, u.mail, u.password, u.role " +
                 "FROM User u " +
                 "WHERE u.user_id = ?;",new Object[] {ID}, new UserMapper());
-
         if (myUsers.isEmpty())
             return null;
         else

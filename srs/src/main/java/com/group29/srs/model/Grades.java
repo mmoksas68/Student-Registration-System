@@ -57,4 +57,15 @@ public class Grades {
     public void setCoursename(String coursename) {
         this.coursename = coursename;
     }
+
+    @Override
+    public String toString() {
+        return "Grades{" +
+                "title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", type='" + type + '\'' +
+                ", grade=" + grade +
+                ", coursename='" + coursename + '\'' +
+                '}';
+    }
 }

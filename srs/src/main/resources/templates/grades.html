@@ -16,258 +16,133 @@
 </head>
 <body>
 
-     <!-- üst taraf navigasyon bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
-        
-        <a class="navbar-brand" href="#"><i class="fas fa-university text-success"></i> Student Registration System</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarNavDropdown">
-            <ul class="navbar-nav  ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link " href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link current" href="#">Grades <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Attendaces <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Scheduled Assessments <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Transcript <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Curriculum <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Course Registeration<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Exchange<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Car Stickers<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Logout <i class="fas fa-sign-out-alt"></i><span class="sr-only">(current)</span></a>
-              </li>             
-            </ul>
-        </div>
-    </nav>
+<!-- üst taraf navigasyon bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
 
-    <div class="row" style="width: 100%;">
-        <div class="col-2" id="smallStudentInfo">
-            <!-- sol taraf öğrenci sectionu -->
-            <div class="card w-100 ml-3" style="width: 18rem;">
-              <div class="card-header text-center">
+    <a class="navbar-brand" href="#"><i class="fas fa-university text-success"></i> Student Registration System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNavDropdown">
+        <ul class="navbar-nav  ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link " th:href="'/student/'+${student.getStudent_id()}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link current" th:href="'/student/'+${student.getStudent_id()}+'/grades'">Grades <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Attendaces <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Scheduled Assessments <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Transcript <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Curriculum <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Course Registeration<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Exchange<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Car Stickers<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/logout/">Logout <i class="fas fa-sign-out-alt"></i><span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row" style="width: 100%;">
+    <div class="col-2" id="smallStudentInfo">
+        <!-- sol taraf öğrenci sectionu -->
+        <div class="card w-100 ml-3" style="width: 18rem;">
+            <div class="card-header text-center">
                 Student Information
-              </div>
-              <img th:src="@{/assets/vesikalık.jpg}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title text-center">Muhammed Musab Okşaş</h5>
-                <h5 class="card-text text-center">Computer Science</h5>
-                <h6 class="card-text text-center">21602984</h6>
-              </div>
-              <ul class="list-group list-group-flush">
+            </div>
+            <img th:src="@{/assets/vesikalık.jpg}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center" th:text="${student.getFirstname()} + ' ' + ${student.getLastname()}"></h5>
+                <h5 class="card-text text-center" th:text="${student.getDept_name()}"></h5>
+                <h6 class="card-text text-center" th:text="${student.getStudent_id()}"></h6>
+            </div>
+            <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <table class="table table-striped table-sm info-table">
-                      <tbody>
+                        <tbody>
                         <tr>
-                          <th scope="row">CGPA</th>
-                          <td>3.16</td>
+                            <th scope="row">CGPA</th>
+                            <td th:text="${student.getCgpa()}"></td>
                         </tr>
                         <tr>
-                          <th scope="row">GPA</th>
-                          <td>3.65</td>
+                            <th scope="row">GPA</th>
+                            <td th:text="${student.getGpa()}"></td>
                         </tr>
                         <tr>
-                          <th scope="row">Class</th>
-                          <td>3</td>
+                            <th scope="row">Current Semester</th>
+                            <td th:text="${student.getCurrent_semester()}"></td>
                         </tr>
-                      </tbody>
+                        </tbody>
                     </table>
                 </li>
                 <li class="list-group-item">
                     <table class="table table-striped table-sm info-table">
-                      <tbody>
+                        <tbody>
                         <tr>
-                          <th scope="row">Mobile Phone:</th>
-                          <th>5525585706</th>
+                            <th scope="row">Mobile Phone:</th>
+                            <th th:text="${student.getPhone_number()}"></th>
                         </tr>
-                      </tbody>
+                        </tbody>
                     </table>
                 </li>
-                <li class="list-group-item">Contact Mail:</li>
-                <li class="list-group-item" style="font-size: 75%;">musab.oksas@ug.bilkent.edu.tr</li>
-              </ul>
-              <div class="card-body">
-                <a href="#" class="card-link">Update Information <i class="fas fa-user-edit"></i></a>
-              </div>
+                <li class="list-group-item" >Contact Mail:</li>
+                <li class="list-group-item" style="font-size: 75%;" th:text="${student.getMail()}"></li>
+            </ul>
+            <div class="card-body">
+                <a href="#" class="card-link">Update Information <i class="fas fa-myUser-edit"></i></a>
             </div>
         </div>
+    </div>
         <button type="button" class="btn"  id="hideButton"><i class="fas fa-angle-double-left"></i></button>
         <button type="button" class="btn d-none ml-3"  id="showButton"><i class="fas fa-angle-double-right"></i></button>
         <div class="col-6" style="margin-left: 15%;">
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square d-none" id="show-icon-1"></i> 
-                    Grades for CS 315 Programming Languages 
-                </h4>
-                <table class="table table-striped table-sm" id="grade-table-1">
+            <div class="row" th:each=" i: ${#numbers.sequence(0,grades.size()-1)}">
+                <span >
+                    <h4 class="table-header pl-1 pb-1 pr-1">
+                        <i class="fas fa-minus-square" th:id="'hide-icon-'+${i+1}"></i>
+                        <i class="fas fa-plus-square d-none" th:id="'show-icon-'+${i+1}"></i>
+                        <span th:text="'Grades for ' + ${grades.get(i).get(0).getCoursename()}"></span>
+                    </h4>
+                </span>
+
+                <table class="table table-striped table-sm" th:id="'grade-table-'+${i+1}">
                   <thead>
                     <tr>
                       <th scope="col">Title</th>
                       <th scope="col">Type</th>
                       <th scope="col">Date</th>
                       <th scope="col">Grade</th>
-                      <th scope="col">Average</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row" colspan="5" class="text-center">Midterm</th>
-                    </tr>
-                    <tr>
-                      <th scope="row">Midterm 1</th>
-                      <td>Midterm</td>
-                      <td>24/02/2020</td>
-                      <td>90/100</td>
-                      <td>76.54</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Midterm 2</th>
-                      <td>Midterm</td>
-                      <td>05/03/2020</td>
-                      <td>81/100</td>
-                      <td>57.49</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" colspan="5" class="text-center">Project</th>
-                    </tr>
-                    <tr>
-                      <th scope="row">Project 1</th>
-                      <td>Project</td>
-                      <td>24/02/2020</td>
-                      <td>18/20</td>
-                      <td>14.03</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" colspan="5" class="text-center">Lab</th>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lab 1</th>
-                      <td>Lab</td>
-                      <td>24/02/2020</td>
-                      <td>6/7</td>
-                      <td>5.03</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lab 2</th>
-                      <td>Lab</td>
-                      <td>05/03/2020</td>
-                      <td>6.5/7</td>
-                      <td>6</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lab 3</th>
-                      <td>Lab</td>
-                      <td>05/03/2020</td>
-                      <td>7/7</td>
-                      <td>3</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" colspan="5" class="text-center">Quiz</th>
-                    </tr>
-                    <tr>
-                      <th scope="row">Quiz 1</th>
-                      <td>Quiz</td>
-                      <td>24/02/2020</td>
-                      <td>6/7</td>
-                      <td>5.03</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Quiz 2</th>
-                      <td>Quiz</td>
-                      <td>05/03/2020</td>
-                      <td>6.5/7</td>
-                      <td>6</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Quiz 3</th>
-                      <td>Quiz</td>
-                      <td>05/03/2020</td>
-                      <td>7/7</td>
-                      <td>3</td>
-                    </tr>
-                    <tr>
-                      <th scope="row" colspan="5" class="text-center">Homework</th>
-                    </tr>
-                    <tr>
-                      <th scope="row">Homework 1</th>
-                      <td>Homework</td>
-                      <td>24/02/2020</td>
-                      <td>6/7</td>
-                      <td>5.03</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Homework 2</th>
-                      <td>Homework</td>
-                      <td>05/03/2020</td>
-                      <td>6.5/7</td>
-                      <td>6</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Homework 3</th>
-                      <td>Homework</td>
-                      <td>05/03/2020</td>
-                      <td>7/7</td>
-                      <td>3</td>
+                    <tr th:each="grade:${grades.get(i)}">
+                      <th scope="row" th:text="${grade.getTitle()}"></th>
+                      <td th:text="${grade.getType()}"></td>
+                      <td th:text="${grade.getDate()}"></td>
+                      <td th:text="${grade.getGrade()}"></td>
                     </tr>
                   </tbody>
                 </table>    
             </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Grades for CS 421 Computer Networks 
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Grades for CS 353 Database Systems 
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Grades for CS 464 Introduction to Machine Learning 
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Grades for PSYC 102 Introduction to Social Psychology 
-                </h4>
-            </div>
-            <div class="row">
-                <h4 class="table-header pl-1 pb-1 pr-1"> 
-                    <i class="fas fa-minus-square d-none" id="hide-icon-1"></i> 
-                    <i class="fas fa-plus-square" id="show-icon-1"></i> 
-                    Grades for CS 342 Operating Systems  
-                </h4>
-            </div>
         </div>
      </div>
+</div>
 
      <script th:src="@{/js/grades.js}"></script>
 <!-- Optional JavaScript -->
