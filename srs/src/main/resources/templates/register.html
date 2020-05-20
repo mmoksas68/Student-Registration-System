@@ -133,7 +133,10 @@
                       <td th:text="${course.getFirstname()} + ' ' + ${course.getLastname()}">Ezhan Karaşan</td>
                       <td th:text="${course.getCredits()}">3</td>
                       <td>
-                        <a href="#"><i class="fas fa-minus-circle text-danger"></i> Drop</a>
+                        <a th:href="'/student/'+${student.getStudent_id()}+'/drop/'+
+                                    ${course.getCourse_id()}+'/'+${course.getSection_number()}">
+                          <i class="fas fa-minus-circle text-danger"></i> Drop
+                        </a>
                         / 
                         <a href="#"><i class="fas fa-exchange-alt text-success"></i> Change</a>
                       </td>  
@@ -196,8 +199,8 @@
                       <td th:text="${available_courses.get(i).getFirstname()} + ' ' + ${available_courses.get(i).getLastname()}">Can Alkan</td>
                       <td th:text="${available_courses.get(i).getAvailable_quota()} + '/' + ${available_courses.get(i).getTotal_quota()}">3/60</td>
                       <td>
-                        <a th:href="'/student/'+${student.getStudent_id()}+'/course-registration/'+
-                                    ${available_courses.get(i).getCourse_code()}+'/'+${available_courses.get(i).getSection_id()}">
+                        <a th:href="'/student/'+${student.getStudent_id()}+'/registration/'+
+                                    ${available_courses.get(i).getCourse_id()}+'/'+${available_courses.get(i).getSection_id()}">
                                     register <i class="fas fa-sign-in-alt"></i>
                         </a>
                       </td>  

@@ -68,7 +68,7 @@ public class StudentRepository {
     }
 
     public List<TakenCourses> getTakenCourses(long id, String semester, int year){
-        return  jdbcTemplate.query("SELECT c.course_code, sec.section_number," +
+        return  jdbcTemplate.query("SELECT c.course_id, c.course_code, sec.section_number," +
                 " c.name,u.firstname, u.lastname,c.credits FROM Student s " +
                 "INNER JOIN Takes t ON t.s_id=s.student_id " +
                 "INNER JOIN Section sec ON t.section_id=sec.section_id AND t.course_id=sec.course_id " +
@@ -199,12 +199,12 @@ public class StudentRepository {
 
     public void registerCourse(long student_id,long course_id, long section_id, int year, String semester){
         jdbcTemplate.update(
-                "INSERT INTO Takes(student_id, course_id, section_id, year, semester) VALUES (?, ?, ?, ?, ?)",
-                new Object[]{student_id,course_id, section_id, year, semester});
+                "INSERT INTO Takes(s_id, course_id, section_id, year, semester) VALUES (?, ?, ?, ?, ?)",
+                new Object[]{student_id, course_id, section_id, year, semester});
     }
 
 
     public void dropCourse(long student_id, long course_id, long section_id){
-        jdbcTemplate.update("Delete From Takes t Where t.s_id = ? and t.course_id = ? and t.section_id = ?", new Object[]{student_id, course_id, section_id});
+        jdbcTemplate.update("DELETE FROM Takes t WHERE t.s_id = ? and t.course_id = ? and t.section_id = ? ", new Object[]{student_id, course_id, section_id});
     }
 }

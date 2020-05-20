@@ -96,14 +96,22 @@ public class StudentController {
         return "register";
     }
 
-    @GetMapping("/{studentID}/course-registration/{courseCode}/{sectionID}")
+    @GetMapping("/{studentID}/registration/{courseID}/{sectionID}")
     public String registerToCourse(@PathVariable(value = "studentID") Long ID,
-                                   @PathVariable(value = "studentID") Long courseCode,
-                                   @PathVariable(value = "studentID") Long sectionID,
+                                   @PathVariable(value = "courseID") Long courseCode,
+                                   @PathVariable(value = "sectionID") Long sectionID,
                                    Model model){
-
+        studentServices.registerCourse(ID, courseCode,sectionID, 2020, "spring");
 
         return "redirect:/student/"+ID+"/course-registration";
     }
 
+    @GetMapping("/{studentID}/drop/{courseID}/{sectionID}")
+    public String dropCourse(@PathVariable(value = "studentID") Long ID,
+                                   @PathVariable(value = "courseID") Long courseCode,
+                                   @PathVariable(value = "sectionID") Long sectionID,
+                                   Model model){
+        studentServices.dropCourse(ID, courseCode, sectionID);
+        return "redirect:/student/"+ID+"/course-registration";
+    }
 }

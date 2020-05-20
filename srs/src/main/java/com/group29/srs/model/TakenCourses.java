@@ -1,6 +1,7 @@
 package com.group29.srs.model;
 
 public class TakenCourses {
+    Long course_id;
     String course_code;
     String name;
     int credits ;
@@ -78,5 +79,13 @@ public class TakenCourses {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';
+    }
+
+    public Long getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(Long course_id) {
+        this.course_id = course_id;
     }
 }
