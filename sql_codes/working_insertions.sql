@@ -4,6 +4,19 @@ Insert into User (user_id, firstname, lastname, mail, password, role) values (12
 Insert into User (user_id, firstname, lastname, mail, password, role) values (2251, "Cagri", "Gungor", "cagri.gungor@ug.bilkent.edu.tr", "$2a$10$PzlHE9VlPFpfXa7f7eJHjOMSLuDtCNExIiJZfhB4zp8/m9tmialse", 'student');
 Insert into User (user_id, firstname, lastname, mail, password, role) values (2984, "Muhammed Musab", "Oksas", "m.oksas@ug.bilkent.edu.tr", "$2a$10$PzlHE9VlPFpfXa7f7eJHjOMSLuDtCNExIiJZfhB4zp8/m9tmialse", 'student');
 
+create trigger insertStudent
+before insert
+on Student
+for each row
+	set new.is_applied_erasmus= false;
+
+create trigger age_setter
+before insert
+on Student
+for each row
+	set new.age = (select date_format(from_days(datediff(NOW(), NEW.date_of_birth)), "%Y")+0 as age);
+
+
 # STUDENT
 Insert into Student (student_id, address, gpa, cgpa, erasmus_application_point, gender, date_of_birth, current_semester) values (2375, "Esme/Usak Cumhuriyet Mah. Mustafa Kemal Cad. No79", 3.48, 3.68, 50, "Male", '1998-01-06', 5);
 Insert into Student (student_id, address, gpa, cgpa, erasmus_application_point, gender, date_of_birth, current_semester) values (1289, "Izmir", 3.45, 3.64, 68.32, "Male", '1997-01-08', 6);

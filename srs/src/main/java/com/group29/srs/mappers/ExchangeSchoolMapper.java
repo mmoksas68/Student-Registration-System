@@ -10,6 +10,7 @@ public class ExchangeSchoolMapper implements RowMapper<Exchange_School> {
     @Override
     public Exchange_School mapRow(ResultSet resultSet, int index) throws SQLException {
         Exchange_School ex = new Exchange_School();
+        ex.setSchool_id(resultSet.getLong("school_id"));
         ex.setSchool_name(resultSet.getString("school_name"));
         ex.setSchool_country(resultSet.getString("school_country"));
         ex.setDepartment(resultSet.getString("department"));

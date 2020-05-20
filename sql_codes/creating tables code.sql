@@ -27,6 +27,7 @@ gender		enum('Male','Female') NOT NULL,
 date_of_birth DATE,
 age 		TINYINT,
 current_semester	TINYINT,
+is_applied_erasmus BOOL,
 foreign key(student_id) references User(user_id),
 check (gender in ('Male','Female')));
 
@@ -218,6 +219,8 @@ available_semester	enum('fall','spring','summer'),
 school_country	varchar(32)
 );
 
+Create index newName on ExchangeSchool(school_name);
+
 create table ExchangeApplication(
 student_id			int,
 school_id			int,
@@ -228,6 +231,20 @@ year				smallint,
 primary key (student_id, school_id),
 foreign key (student_id) references Student(student_id),
 foreign key (school_id) references ExchangeSchool(school_id));
+
+create trigger application_status_setter
+before insert
+on ExchangeApplication
+for each row
+	set new.application_status = 'pending';
+
+create trigger application_year_setter
+before insert
+on ExchangeApplication
+for each row
+	set new.year = date_format(NOW(), "%Y");
+	
+
 
 create table ResponsibleFor(
 student_id 		int,
@@ -248,3 +265,4 @@ driver_licence_no 	varchar(32) not null,
 penalty_point	int,
 owner_id 		int,
 foreign key (owner_id) references User(user_id));
+
