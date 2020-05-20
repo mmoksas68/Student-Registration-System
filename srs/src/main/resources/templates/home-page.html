@@ -15,48 +15,49 @@
 
 </head>
 <body>
-     <!-- üst taraf navigasyon bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
-        
-        <a class="navbar-brand" href="#"><i class="fas fa-university text-success"></i> Student Registration System</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+
+<!-- üst taraf navigasyon bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+
+    <a class="navbar-brand" href="#"><i class="fas fa-university text-success"></i> Student Registration System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarNavDropdown">
-            <ul class="navbar-nav  ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link current" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" th:href="'/student/'+${student.getStudent_id()}+'/grades'">Grades <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Attendaces <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNavDropdown">
+        <ul class="navbar-nav  ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link current" th:href="'/student/'+${student.getStudent_id()}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link " th:href="'/student/'+${student.getStudent_id()}+'/grades'">Grades <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Attendances <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="#">Scheduled Assessments <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="#">Transcript <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="#">Curriculum <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Course Registeration<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Exchange<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="'/student/'+${student.getStudent_id()}+'/course-registration'">Course Registeration<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="'/student/'+${student.getStudent_id()}+'/exchange'">Exchange<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="#">Car Stickers<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="/logout/">Logout <i class="fas fa-sign-out-alt"></i><span class="sr-only">(current)</span></a>
-              </li>             
-            </ul>
-        </div>
-    </nav>
+            </li>
+        </ul>
+    </div>
+</nav>
 
     <div class="row" style="width: 100%;">
         <div class="col-2" id="smallStudentInfo">
@@ -105,7 +106,7 @@
                 <li class="list-group-item" style="font-size: 75%;" th:text="${student.getMail()}"></li>
               </ul>
               <div class="card-body">
-                <a href="#" class="card-link">Update Information <i class="fas fa-myUser-edit"></i></a>
+                <a href="#" class="card-link">Update Information <i class="fas fa-user-edit"></i></a>
               </div>
             </div>
 
@@ -161,7 +162,7 @@
                     <option th:each="i: ${#numbers.sequence(0,8)}">
                       <tr>
                         <th cclass="smallTh" scope="row" th:text="${i+8}+':40 - '+${i+9}+':30'">08:40 - 09:30</th>
-                        <span  th:each="j: ${#numbers.sequence(0, 4)}" th:with="k = ${true}">
+                        <span  th:each="j: ${#numbers.sequence(0, 4)}" >
                             <span th:switch="${available[j*9+i]}">
                                 <span th:case="0">
                                     <td></td>
@@ -169,7 +170,7 @@
                                 <span th:case="1">
                                         <span th:each="course: ${course_schedules}" >
                                             <span  th:switch="${course.getTimeSlot()}">
-                                                <td th:case="${j*9+i}" th:with="k = ${false}" th:class="'set' + ' ' + 'set-' + ${j+1}">
+                                                <td th:case="${j*9+i}" th:class="'set' + ' ' + 'set-' + ${j+1}">
                                                     <span th:text="${course.getCourse_code()}+'-'+${course.getSection_number()}">
                                                     </span>
                                                     <br>

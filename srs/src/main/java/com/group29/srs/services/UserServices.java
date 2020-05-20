@@ -15,4 +15,8 @@ public class UserServices {
         return  userRepository.getUserByIdAndPassword(ID, password);
     }
 
+    public MyUser getUserByID(Long ID)
+    {
+        return userRepository.getUserById(ID);
+    }
 }

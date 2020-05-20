@@ -57,4 +57,15 @@ public class Exchange_School {
     public void setAvailable_semester(String available_semester) {
         this.available_semester = available_semester;
     }
+
+    @Override
+    public String toString() {
+        return "Exchange_School{" +
+                "school_name='" + school_name + '\'' +
+                ", department='" + department + '\'' +
+                ", available_semester='" + available_semester + '\'' +
+                ", school_country='" + school_country + '\'' +
+                ", erasmus_application_point=" + erasmus_application_point +
+                '}';
+    }
 }

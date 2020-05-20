@@ -5,6 +5,7 @@ import com.group29.srs.repository.InstructorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,9 +29,21 @@ public class InstructorServices {
         return instructorRepository.getInstructorWeeklySchedule(id, semester , year);
     }
 
-    //section_id girmen gerek ona dikkat et.Birde bu section_id yi buttona tıkladıktan sonra elde edersin.Onu da mapliyom
-    public List<LetterGrades> getGrades(long instructor_id, String semester, int year){
-        return instructorRepository.getGrades(instructor_id, semester, year);
+    public  ArrayList<ArrayList<LetterGrades>> getGrades(long instructor_id, String semester, int year){
+        List<LetterGrades> grades = instructorRepository.getGrades(instructor_id, semester, year);
+        ArrayList<ArrayList<LetterGrades>> course_grades =  new ArrayList<ArrayList<LetterGrades>>();
+        String current_course = "";
+        int current_counter = -1;
+        for (int i=0; i<grades.size(); i++){
+            if (!current_course.equals(grades.get(i).getCourse_code()+"-"+grades.get(i).getSection_id())){
+                course_grades.add(new ArrayList<>());
+                current_counter++;
+                current_course = grades.get(i).getCourse_code()+"-"+grades.get(i).getSection_id();
+            }
+            course_grades.get(current_counter).add(grades.get(i));
+        }
+
+        return course_grades;
     }
 
     public List<ButtonName> getButtonNames(long id, String semester, int year){
@@ -41,8 +54,21 @@ public class InstructorServices {
         instructorRepository.setLetterGrades(section_id,letter_grade, student_id, semester,year);
     }
 
-    public List<TeachingAssistantList> getTeachingAssistants(long instructor_id, String semester, int year){
-        return instructorRepository.getTeachingAssistants(instructor_id, semester, year);
+    public ArrayList<ArrayList<TeachingAssistantList>> getTeachingAssistants(long instructor_id, String semester, int year){
+        List<TeachingAssistantList> tas = instructorRepository.getTeachingAssistants(instructor_id, semester, year);
+        ArrayList<ArrayList<TeachingAssistantList>> course_tas =  new ArrayList<ArrayList<TeachingAssistantList>>();
+        String current_course = "";
+        int current_counter = -1;
+        for (int i=0; i<tas.size(); i++){
+            if (!current_course.equals(tas.get(i).getCourse_code()+"-"+tas.get(i).getSection_number())){
+                course_tas.add(new ArrayList<>());
+                current_counter++;
+                current_course = tas.get(i).getCourse_code()+"-"+tas.get(i).getSection_number();
+            }
+            course_tas.get(current_counter).add(tas.get(i));
+        }
+
+        return course_tas;
     }
 
     public void assignTask(long task_id, String task_type, long instructor_id, long ta_id){
