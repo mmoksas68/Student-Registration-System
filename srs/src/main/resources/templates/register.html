@@ -167,7 +167,7 @@
                 <div class="row transparent-background mb-1 p-2" style="width: 90%;">
                   <div class="input-group d-block course-list">
                       <div class="custom-control custom-radio disabled" th:each="i: ${#numbers.sequence(0, courses.size()-1)}" th:id="'list-item-'+${i}">
-                        <input type="radio" th:id="'customRadio'+${i}" name="customRadio" class="custom-control-input">
+                        <input type="radio" th:id="'customRadio'+${i}" name="customRadio" class="custom-control-input" th:value="${courses.get(i).getCourse_code()}">
                         <label class="custom-control-label" th:for="'customRadio'+${i}"
                                th:text="${courses.get(i).getCourse_code()} + ' ' + ${courses.get(i).getName()}"></label>
                       </div>
@@ -175,7 +175,7 @@
                 </div>
               </div>
               <div class="row justify-content-end" style="width: 90%;">
-                    <button type="submit" class="btn btn-primary float-right">Select</button>
+                    <button type="submit" id="list" class="btn btn-primary float-right">Select</button>
               </div> 
               <div class="row">
                 <h5 class="table-header">Available Sections</h5>
@@ -190,7 +190,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr th:each="i: ${#numbers.sequence(0,available_courses.size()-1)}", th:id="'available_course_'+${i}">
+                    <tr th:each="i: ${#numbers.sequence(0,available_courses.size()-1)}" th:class="'d-none hide ' + ${available_courses.get(i).getCourse_code()}">
                       <th scope="row" th:text="${available_courses.get(i).getCourse_code()}+'-'+${available_courses.get(i).getSection_id()}">CS 476-1</th>
                       <td th:text="${available_courses.get(i).getName()}">Automata Theory and Formal Languages</td>
                       <td th:text="${available_courses.get(i).getFirstname()} + ' ' + ${available_courses.get(i).getLastname()}">Can Alkan</td>
@@ -247,7 +247,7 @@
         </div>    
     </div>
 
-    <script th:src="@{/js/homePage.js}"></script>
+    <script th:src="@{/js/register.js}"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

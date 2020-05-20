@@ -11,3 +11,18 @@ $('#showButton').on('click', function() {
     $('#showButton').addClass('d-none')
 });
 
+
+$('#list').click(function () {
+    hide()
+    for (i =0; i<20; i++){
+        if($('#customRadio'+i).is(':checked') ){
+            let course = $('#customRadio'+i).val()
+            $("." + course).removeClass('d-none')
+        }
+
+    }
+})
+
+function hide(){
+    $(".hide").addClass('d-none')
+}

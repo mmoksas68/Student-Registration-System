@@ -48,9 +48,15 @@ public class StudentController {
     public String getExchange(@PathVariable(value = "studentID") Long ID,
                               @ModelAttribute("application") ExchangeApplication exchangeApplication,
                               Model model){
+        StudentInfo student = studentServices.getStudentInfoById(ID).get(0);
+        if (student.getIsAppliedErasmus()){
+            model.addAttribute("message", "You're application is received!");
+        }else
+            model.addAttribute("message", "");
+
         List<Exchange_School> exchange_schools = studentServices.getExchangeInfoById(ID);
         model.addAttribute("exchange_schools", exchange_schools);
-        model.addAttribute("student", studentServices.getStudentInfoById(ID).get(0) );
+        model.addAttribute("student",  student);
         return "exchange";
     }
 
@@ -61,7 +67,7 @@ public class StudentController {
         System.out.println("post achieved");
         System.out.println(exchangeApplication);
         studentServices.applyExchange(ID, exchangeApplication);
-        return "redirect:/student/"+ID;
+        return "redirect:/student/"+ID+"/exchange";
     }
 
     @GetMapping("/{studentID}/course-registration")
