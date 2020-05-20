@@ -198,5 +198,14 @@ public class StudentRepository {
                 new Object[]{student_id});
     }
 
+    public void registerCourse(long student_id,long course_id, long section_id, int year, String semester){
+        jdbcTemplate.update(
+                "INSERT INTO Takes(student_id, course_id, section_id, year, semester) VALUES (?, ?, ?, ?, ?)",
+                new Object[]{student_id,course_id, section_id, year, semester});
+    }
 
+
+    public void dropCourse(long student_id, long course_id, long section_id){
+        jdbcTemplate.update("Delete From Takes t Where t.s_id = ? and t.course_id = ? and t.section_id = ?", new Object[]{student_id, course_id, section_id});
+    }
 }

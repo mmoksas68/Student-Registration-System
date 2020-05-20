@@ -91,4 +91,12 @@ public class StudentServices {
         studentRepository.insertAppliedSchool(student_id, schoolInfo2.get(0).getSchool_id(), exchangeApplication.getSchoolSemester1());
 
     }
+
+    public void registerCourse(long student_id, long course_id, long section_id, int year, String semester){
+        studentRepository.registerCourse(student_id, course_id, section_id, year, semester);
+    }
+
+    public void dropCourse(long student_id, long course_id, long section_id){
+        studentRepository.dropCourse(student_id, course_id, section_id);
+    }
 }
