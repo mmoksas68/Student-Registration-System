@@ -81,9 +81,6 @@ public class StudentServices {
         List<Exchange_School> schoolInfo1 = studentRepository.getAppliedSchoolID(student_id, exchangeApplication.getSchoolName2(), exchangeApplication.getSchoolSemester2());
         List<Exchange_School> schoolInfo2 = studentRepository.getAppliedSchoolID(student_id, exchangeApplication.getSchoolName3(), exchangeApplication.getSchoolSemester3());
 
-        System.out.println(schoolInfo.get(0).getSchool_id());
-        System.out.println(schoolInfo1.get(0).getSchool_id());
-        System.out.println(schoolInfo2.get(0).getSchool_id());
 
 
         studentRepository.insertAppliedSchool(student_id, schoolInfo.get(0).getSchool_id(), exchangeApplication.getSchoolSemester1());

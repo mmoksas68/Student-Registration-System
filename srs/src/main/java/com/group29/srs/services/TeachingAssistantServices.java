@@ -40,4 +40,13 @@ public class TeachingAssistantServices {
          teachingAssistantRepository.setStudentGrades(assignment_id,title,type,date,
                  average, course_id, section_id, grade,student_id);
     }
+
+
+    public List<Sticker_Info> getStickerInfoById(Long ID){
+        return  teachingAssistantRepository.getStickerInfoById(ID);
+    }
+
+    public List<Driver_Info> getDriverInfoById(Long ID){
+        return  teachingAssistantRepository.getDriverInfoById(ID);
+    }
 }

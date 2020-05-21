@@ -47,4 +47,14 @@ public class Driver_Info {
     public void setPenalty_point(Long penalty_point) {
         this.penalty_point = penalty_point;
     }
+
+    @Override
+    public String toString() {
+        return "Driver_Info{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", driver_license_no='" + driver_license_no + '\'' +
+                ", penalty_point=" + penalty_point +
+                '}';
+    }
 }

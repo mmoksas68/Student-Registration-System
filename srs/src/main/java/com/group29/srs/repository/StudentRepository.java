@@ -205,6 +205,6 @@ public class StudentRepository {
 
 
     public void dropCourse(long student_id, long course_id, long section_id){
-        jdbcTemplate.update("DELETE FROM Takes t WHERE t.s_id = ? and t.course_id = ? and t.section_id = ? ", new Object[]{student_id, course_id, section_id});
+        jdbcTemplate.update("DELETE FROM Takes WHERE s_id = ? and course_id = ? and section_id = ?; ", new Object[]{student_id, course_id, section_id});
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,8 +63,6 @@ public class StudentController {
     public String postExchange(@PathVariable(value = "studentID") Long ID,
                                @ModelAttribute("application") ExchangeApplication exchangeApplication,
                                 Model model){
-        System.out.println("post achieved");
-        System.out.println(exchangeApplication);
         studentServices.applyExchange(ID, exchangeApplication);
         return "redirect:/student/"+ID+"/exchange";
     }
@@ -79,7 +76,6 @@ public class StudentController {
             for(int j=0; j < availableSections.size(); j++){
                 availableCourses.add(availableSections.get(j));
             }
-            System.out.println(courses.get(i));
         }
         ArrayList<TakenCourses> courses_taken = (ArrayList<TakenCourses>) studentServices.getTakenCourses(ID, "spring", 2020);
         int[] availableSlots = new int[45];

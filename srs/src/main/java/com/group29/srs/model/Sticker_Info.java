@@ -6,7 +6,7 @@ public class Sticker_Info {
     String start_date;
     String end_date;
     String car_type;
-
+    int isActive = 1;
 
     public Sticker_Info(Long sticker_id, String plate_no, String start_date, String end_date, String car_type) {
         this.sticker_id = sticker_id;
@@ -57,5 +57,25 @@ public class Sticker_Info {
 
     public void setCar_type(String car_type) {
         this.car_type = car_type;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
+    @Override
+    public String toString() {
+        return "Sticker_Info{" +
+                "sticker_id=" + sticker_id +
+                ", plate_no='" + plate_no + '\'' +
+                ", start_date='" + start_date + '\'' +
+                ", end_date='" + end_date + '\'' +
+                ", car_type='" + car_type + '\'' +
+                ", isActive=" + isActive +
+                '}';
     }
 }
