@@ -100,20 +100,12 @@ public class StudentRepository {
                 "INNER JOIN Takes t on t.section_id = sec.section_id AND t.s_id = s.student_id AND t.course_id = sec.course_id "+
                 "WHERE sec.semester = ? AND s.student_id= ? AND sec.year = ?; ",new Object[] {semester, student_id, year}, new StudentGradeMapper());
     }
-    public void updateStudent(long user_id, String password, String mail, String firstname, String lastname,
-                              String address, String date_of_birth, String phone_number){
+    public void updateStudent(long user_id, String password, String mail, String firstname, String lastname, String phone_number){
         jdbcTemplate.update(
                 "UPDATE User " +
                         "SET firstname = ?, lastname= ?, mail= ?, password= ? " +
                         "WHERE user_id = ?;",
                 new Object[]{firstname, lastname, mail, password, user_id}
-        );
-
-        jdbcTemplate.update(
-                "UPDATE Student " +
-                        "SET address= ? , date_of_birth= ? " +
-                        "WHERE student_id = ?;",
-                new Object[]{address, date_of_birth, user_id}
         );
 
         jdbcTemplate.update(

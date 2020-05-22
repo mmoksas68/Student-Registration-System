@@ -61,4 +61,10 @@ public class TaController {
         model.addAttribute("teaching_assistant", teachingAssistantServices.getTeachingAssistantInfoById(ID).get(0) );
         return "car-sticker";
     }
+
+    @GetMapping("/{instructorID}/submit-grades")
+    public String getSubmitGradess(@PathVariable(value = "instructorID") Long ID, Model model){
+        model.addAttribute("teaching_assistant", teachingAssistantServices.getTeachingAssistantInfoById(ID).get(0) );
+        return "submit-grades";
+    }
 }

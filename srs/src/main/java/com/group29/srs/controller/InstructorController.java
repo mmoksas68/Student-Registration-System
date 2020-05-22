@@ -51,4 +51,6 @@ public class InstructorController {
         model.addAttribute("course_grades", course_grades);
         return "assign-letter-grades";
     }
+
+
 }

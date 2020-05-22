@@ -107,7 +107,7 @@
               <li class="list-group-item" style="font-size: 75%;" th:text="${student.getMail()}"></li>
             </ul>
             <div class="card-body">
-              <a href="#" class="card-link">Update Information <i class="fas fa-user-edit"></i></a>
+              <a  th:href="'/student/' + ${student.getStudent_id()} + '/update'" class="card-link">Update Information <i class="fas fa-user-edit"></i></a>
             </div>
             </div>
           </div>

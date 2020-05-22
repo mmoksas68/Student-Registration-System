@@ -50,9 +50,8 @@ public class StudentServices {
         return course_grades;
     }
 
-    public void updateStudent(long user_id, String password, String mail, String firstname, String lastname,
-                              String address, String date_of_birth, String phone_number){
-        studentRepository.updateStudent(user_id, password, mail, firstname, lastname, address, date_of_birth, phone_number);
+    public void updateStudent(long user_id, String password, String mail, String firstname, String lastname, String phone_number){
+        studentRepository.updateStudent(user_id, password, mail, firstname, lastname, phone_number);
     }
 
     public int insertStudent(StudentRegister studentRegister){
