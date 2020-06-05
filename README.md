@@ -7,7 +7,7 @@ allows instructors, teaching assistants (TA) and students to access course-relat
 The system will provide instructors with a platform for offering courses, defining
 requirements for courses and grading for assessments. TA's will grade labs, projects, and
 homework assignments. Students will be able to track the performance and attendance of
-their course, enroll and withdraw courses and submit their assignments.<br>
+their course, enroll and withdraw courses and submit their assignments.<br><br>
 Users will initially sign up to register themselves for an account. The system users will have
 three separate accounts i.e. instructors, TAs and students. User-made accounts will be
 registered using email addresses and passwords, each giving a unique identification.
@@ -16,7 +16,7 @@ choose the sections of these courses to allocate the schedule of lectures. They 
 create syllabuses for each course and publish in this system. Throughout the semester,
 instructors will update the exam grades, attendances for each student, enter assignments
 and announcements to the system for each course, give tasks for TA’s and prepare their
-personal information.<br>
+personal information.<br><br>
 The teaching assistants would be assigned the job of grading a project, lab work and
 homework assignments for students. They will join these grades in the program during the
 semester. The TA's will also show their weekly office hours for students to visit them, and
@@ -26,10 +26,10 @@ the grades they receive for each component of the course grading and will also r
 attendance results. Before the start of the semester, students will be eligible to enroll for
 courses and to withdraw from a specific course until the deadline to be determined later by
 instructors. Students may also submit their assignments to the TA for evaluation. Students
-may apply to another university for a student exchange program.<br>
+may apply to another university for a student exchange program.<br><br>
 While our system does not accurately represent the university structures, it will essentially
 reminisce how it looks like a university database system.
-<br>
+<br><br>
 
 Doğukan KÖSE, 21602375
 
