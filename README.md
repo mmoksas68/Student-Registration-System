@@ -2,6 +2,11 @@
 CS-353 Database Term Project
 Student Registration System / Group 29
 
+![alt text](https://github.com/mmoksas68/CS-353-Student-Registration-System/blob/master/Proposal/homepage.PNG?raw=true)
+<br>
+<br>
+
+
 The proposed program is a Student Academic Information Registration System that
 allows instructors, teaching assistants (TA) and students to access course-related queries.
 The system will provide instructors with a platform for offering courses, defining
